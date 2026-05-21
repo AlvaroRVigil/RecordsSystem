@@ -28,19 +28,34 @@ const KEY = "vinilos.collections.v1";
 const ACTIVE_KEY = "vinilos.activeCollection";
 
 export const DEFAULT_ID = "default";
+export const WISHLIST_ID = "wishlist";
+export const PRIMARY_IDS = [DEFAULT_ID, WISHLIST_ID] as const;
+
+const seedCollections = (allIds: string[]): Collection[] => [
+  { id: DEFAULT_ID, name: "Mi Colección", vinylIds: allIds, sortBy: "custom" },
+  { id: WISHLIST_ID, name: "Lista de deseos", vinylIds: [], sortBy: "custom" },
+];
 
 export function loadCollections(allIds: string[]): Collection[] {
-  if (typeof window === "undefined") {
-    return [{ id: DEFAULT_ID, name: "Mi Colección", vinylIds: allIds }];
-  }
+  if (typeof window === "undefined") return seedCollections(allIds);
   try {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as Collection[];
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // ensure the two primary lists always exist
+        const out = [...parsed];
+        if (!out.some((c) => c.id === DEFAULT_ID)) {
+          out.unshift({ id: DEFAULT_ID, name: "Mi Colección", vinylIds: allIds, sortBy: "custom" });
+        }
+        if (!out.some((c) => c.id === WISHLIST_ID)) {
+          out.push({ id: WISHLIST_ID, name: "Lista de deseos", vinylIds: [], sortBy: "custom" });
+        }
+        return out;
+      }
     }
   } catch {}
-  return [{ id: DEFAULT_ID, name: "Mi Colección", vinylIds: allIds }];
+  return seedCollections(allIds);
 }
 
 export function saveCollections(cols: Collection[]) {

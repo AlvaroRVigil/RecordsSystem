@@ -53,7 +53,7 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
     openDuration: 2400,
     moveSplit: 0.45,
     flipOverlap: 0.4, // start the flip much earlier — overlaps most of the lift
-    hoverSpring: 0.09,
+    hoverSpring: 0.04,
     hoverLift: 0.08,
   };
   const moveEasing: EasingName = "easeInOutQuart";
@@ -601,11 +601,10 @@ function Sleeve({
 
   const meshGroupRef = useRef<THREE.Group>(null);
   const hoverRef = useRef(0); // 0..1 smooth hover progress
-  const hoverTargetRef = useRef(0);
+  const cursorOverRef = useRef(false);
 
   useFrame(() => {
     if (!meshGroupRef.current) return;
-    hoverRef.current += (hoverTargetRef.current - hoverRef.current) * hoverSpring;
     // wrap the position to [-modulus/2, modulus/2) so the vinyl quietly loops
     let delta = (baseIndex - currentRef.current) % modulus;
     if (delta > modulus / 2) delta -= modulus;
@@ -627,6 +626,13 @@ function Sleeve({
 
     const centerWeight = Math.max(0, 1 - Math.abs(x) / (spacing * 0.6));
 
+    // hover target: lift when this sleeve is centred (spotlight) OR when the
+    // cursor is over it. The carousel will smoothly pass the lift from one
+    // sleeve to the next as the active changes with the arrows.
+    const spotlight = Math.max(0, Math.min(1, (centerWeight - 0.35) / 0.5));
+    const target = Math.max(spotlight, cursorOverRef.current ? 1 : 0);
+    hoverRef.current += (target - hoverRef.current) * hoverSpring;
+
     // Sharp flip: only sleeves VERY close to center (|x| < spacing * 0.15)
     // are flipped — sleeves moving in or out of the centre stay spine-forward
     // (slim profile) so they never sweep through neighbours.  Achieved with a
@@ -637,7 +643,10 @@ function Sleeve({
     meshGroupRef.current.rotation.y = baseRot * (1 - flipFactor);
 
     // hover lift fades out as we open
-    const hoverEased = 1 - Math.pow(1 - hoverRef.current, 3);
+    // easeInOutQuint — strong S-curve, very soft entry AND exit
+    const h = hoverRef.current;
+    const hoverEased =
+      h < 0.5 ? 16 * h * h * h * h * h : 1 - Math.pow(-2 * h + 2, 5) / 2;
     const hoverLiftValue = hoverEased * hoverLift * (1 - open);
     meshGroupRef.current.position.x = x;
     // lift uses a softer curve so neighbours still rise nicely as they slide
@@ -664,11 +673,11 @@ function Sleeve({
         }}
         onPointerOver={(e) => {
           e.stopPropagation();
-          hoverTargetRef.current = 1;
+          cursorOverRef.current = true;
           document.body.style.cursor = "pointer";
         }}
         onPointerOut={() => {
-          hoverTargetRef.current = 0;
+          cursorOverRef.current = false;
           document.body.style.cursor = "";
         }}
         material={materials}

@@ -7,6 +7,7 @@ import MiniVinyl from "@/components/MiniVinyl";
 import SearchOverlay from "@/components/SearchOverlay";
 import CollectionsOverlay from "@/components/CollectionsOverlay";
 import VinylEditOverlay from "@/components/VinylEditOverlay";
+import MarqueeText from "@/components/MarqueeText";
 import data from "@/data/vinilos.json";
 import type { Vinyl } from "@/lib/types";
 import { coverFor } from "@/lib/cover";
@@ -102,6 +103,9 @@ export default function Home() {
     }
   };
   const handleActivateCollection = (id: string) => {
+    // close any open vinyl when switching list so the detail view doesn't
+    // linger over a vinyl that no longer exists in the new collection
+    if (open) handleClose();
     setActiveCollectionId(id);
     saveActiveId(id);
   };
@@ -304,29 +308,39 @@ export default function Home() {
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-ink text-paper">
-      {!hydrated && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-ink">
-          <div className="w-[320px] border border-paper/10">
-            <div className="flex items-center justify-between border-b border-paper/10 px-4 py-2 mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
-              <span>Sistema · v0.1</span>
-              <span className="loading-dot">●</span>
+      {/* loading card — fades out when hydrated */}
+      <div
+        className={`absolute inset-0 z-50 flex items-center justify-center bg-ink transition-opacity duration-700 ${
+          hydrated ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
+        <div className="w-[320px] border border-paper/10">
+          <div className="flex items-center justify-between border-b border-paper/10 px-4 py-2 mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+            <span>Sistema · v0.1</span>
+            <span className="loading-dot">●</span>
+          </div>
+          <div className="px-5 pt-5 pb-3">
+            <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+              Estado
             </div>
-            <div className="px-5 pt-5 pb-3">
-              <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
-                Estado
-              </div>
-              <div className="mt-1.5 text-[14px] text-paper/85">
-                Cargando ficheros
-              </div>
+            <div className="mt-1.5 text-[14px] text-paper/85">
+              Cargando ficheros
             </div>
-            <div className="px-5 pb-5">
-              <div className="h-px bg-paper/10 relative overflow-hidden">
-                <div className="absolute inset-y-0 left-0 w-1/3 bg-paper/40 loading-bar" />
-              </div>
+          </div>
+          <div className="px-5 pb-5">
+            <div className="h-px bg-paper/10 relative overflow-hidden">
+              <div className="absolute inset-y-0 left-0 w-1/3 bg-paper/40 loading-bar" />
             </div>
           </div>
         </div>
-      )}
+      </div>
+
+      {/* everything else fades IN when hydrated */}
+      <div
+        className={`transition-opacity duration-700 ${
+          hydrated ? "opacity-100" : "opacity-0"
+        }`}
+      >
       {vinilos.length > 0 && (
         <VinylShelf ref={shelfRef} vinilos={vinilos} onOpen={handleVinylClick} onActiveChange={setActive} />
       )}
@@ -375,14 +389,14 @@ export default function Home() {
           {fullyOpen && (
             <motion.button
               onClick={handleClose}
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: "-50%", y: -4 }}
+              animate={{ opacity: 1, x: "-50%", y: 0 }}
               transition={{ duration: 0.4 }}
               aria-label="Cerrar"
-              className="absolute left-1/2 top-[86%] -translate-x-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-paper/20 text-paper/60 hover:text-paper hover:border-paper/60 transition"
+              className="absolute left-1/2 top-[78%] z-20 flex h-6 w-6 items-center justify-center text-paper/50 hover:text-paper transition"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" strokeLinecap="round" />
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 2 L12 12 M12 2 L2 12" stroke="currentColor" strokeLinecap="round" strokeWidth="1.2" />
               </svg>
             </motion.button>
           )}
@@ -532,11 +546,11 @@ export default function Home() {
       {active && (
         <div className="pointer-events-none absolute bottom-0 right-0 z-20 px-8 py-6">
           <div className="flex items-center gap-3 text-right">
-            <div className="max-w-[240px]">
+            <div className="max-w-[320px]">
               <div className="text-[11px] uppercase tracking-[0.18em] text-paper/50">
                 Ahora viendo
               </div>
-              <div className="mt-1 truncate font-medium text-[15px]">{active.title}</div>
+              <MarqueeText className="mt-1 font-medium text-[15px]">{active.title}</MarqueeText>
             </div>
             <MiniVinyl coverUrl={coverFor(active)} />
           </div>
@@ -617,6 +631,7 @@ export default function Home() {
         onReorder={handleReorderVinyl}
         allVinilos={allVinilos}
       />
+      </div>
     </main>
   );
 }

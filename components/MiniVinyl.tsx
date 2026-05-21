@@ -16,7 +16,7 @@ export default function MiniVinyl({ coverUrl, size = 56 }: { coverUrl: string; s
         className="absolute inset-0 rounded-full"
         style={{
           background:
-            "repeating-radial-gradient(circle at center, #0a0a0a 0px, #0a0a0a 1px, #1a1a1a 2px, #0a0a0a 3px)",
+            "repeating-radial-gradient(circle at center, #0a0a0a 0px, #383131 1px, #1a1a1a 2px, #272626 3px)",
         }}
       />
       {/* label */}
