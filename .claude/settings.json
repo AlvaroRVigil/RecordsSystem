@@ -8,7 +8,9 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'count: {len\\(d.get\\(\\\\\"results\\\\\",[]\\)\\)}'\\)\")",
       "Bash(git -c filter-branch.preserveOriginalOptions=true filter-branch -f --env-filter ' *)",
       "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --env-filter ' *)",
-      "Bash(awk '/useEffect.*el = containerRef/,/}, \\\\[/' /Users/alvarorodriguezvigil/Freelance/Personal/Vinilos/components/VinylShelf3D.tsx)"
+      "Bash(awk '/useEffect.*el = containerRef/,/}, \\\\[/' /Users/alvarorodriguezvigil/Freelance/Personal/Vinilos/components/VinylShelf3D.tsx)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); rocks=[v for v in d if 'rock' in \\(v.get\\('genre'\\) or ''\\).lower\\(\\)]; print\\(f'Rock vinyls \\({len\\(rocks\\)}\\):'\\); [print\\(f'  - {v[\\\\\"artist\\\\\"]} — {v[\\\\\"title\\\\\"]} \\({v.get\\(\\\\\"genre\\\\\"\\)}\\)'\\) for v in rocks]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); ids=[v['id'] for v in d if 'rock' in \\(v.get\\('genre'\\) or ''\\).lower\\(\\)]; print\\(json.dumps\\(ids\\)\\)\")"
     ]
   }
 }

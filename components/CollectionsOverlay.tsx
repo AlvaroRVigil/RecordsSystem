@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { type Collection, type SortMode, SORT_LABELS, sortedVinylIds, DEFAULT_ID } from "@/lib/collections";
+import { type Collection, type SortMode, SORT_LABELS, sortedVinylIds, DEFAULT_ID, WISHLIST_ID } from "@/lib/collections";
+
+const isPrimaryId = (id: string) => id === DEFAULT_ID || id === WISHLIST_ID;
 import type { Vinyl } from "@/lib/types";
 
 type Props = {
@@ -115,12 +117,12 @@ export default function CollectionsOverlay({
           {editing ? (
             <EditPanel
               editing={
-                editing.id === DEFAULT_ID
+                isPrimaryId(editing.id)
                   ? { ...editing, vinylIds: allVinilos.map((v) => v.id) }
                   : editing
               }
               allVinilos={allVinilos}
-              isPrimary={editing.id === DEFAULT_ID}
+              isPrimary={isPrimaryId(editing.id)}
               onRename={onRename}
               onToggleVinyl={onToggleVinyl}
               onDeleteVinyl={onDeleteVinyl}
@@ -148,8 +150,16 @@ export default function CollectionsOverlay({
                       className="w-full bg-transparent border-b border-paper/20 py-1 text-[22px] font-medium text-paper outline-none focus:border-paper/60"
                     />
                   ) : (
-                    <h2 className="text-[22px] font-medium leading-tight tracking-tight">
+                    <h2 className="text-[22px] font-medium leading-tight tracking-tight flex items-center gap-2">
                       {active.name}
+                      {isPrimaryId(active.id) && (
+                        <span className="text-paper/30 mt-1" title="Lista predefinida">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <rect x="2.5" y="5.5" width="7" height="5" rx="0.6" stroke="currentColor" />
+                            <path d="M4 5.5V4a2 2 0 1 1 4 0v1.5" stroke="currentColor" />
+                          </svg>
+                        </span>
+                      )}
                     </h2>
                   )}
 
@@ -186,13 +196,15 @@ export default function CollectionsOverlay({
                     >
                       Editar discos →
                     </button>
-                    <button
-                      onClick={() => setRenaming(true)}
-                      className="text-[12px] py-1.5 px-3 rounded-sm hover:bg-paper/5 text-paper/70 hover:text-paper transition"
-                    >
-                      Renombrar
-                    </button>
-                    {collections.length > 1 && active.id !== DEFAULT_ID && (
+                    {!isPrimaryId(active.id) && (
+                      <button
+                        onClick={() => setRenaming(true)}
+                        className="text-[12px] py-1.5 px-3 rounded-sm hover:bg-paper/5 text-paper/70 hover:text-paper transition"
+                      >
+                        Renombrar
+                      </button>
+                    )}
+                    {collections.length > 1 && !isPrimaryId(active.id) && (
                       <button
                         onClick={() => {
                           if (confirm(`Eliminar "${active.name}"?`)) onDelete(active.id);
@@ -213,9 +225,9 @@ export default function CollectionsOverlay({
                 </span>
               </div>
 
-              {/* other lists — cards */}
-              <ul className="px-3 py-3 space-y-2">
-                {others.map((c) => {
+              {/* other lists — primary lists first, then a hairline, then custom */}
+              {(() => {
+                const renderRow = (c: Collection) => {
                   const s = statsFor(c, allVinilos);
                   return (
                     <li key={c.id} className="group relative">
@@ -230,7 +242,6 @@ export default function CollectionsOverlay({
                           {s.count} discos
                         </span>
                       </button>
-                      {/* edit button — activates the list and opens its edit view without closing the overlay */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -246,13 +257,30 @@ export default function CollectionsOverlay({
                       </button>
                     </li>
                   );
-                })}
-                {others.length === 0 && (
-                  <li className="px-4 py-3 text-[12px] text-paper/35">
-                    No tienes otras listas aún
-                  </li>
-                )}
-              </ul>
+                };
+                const primaries = others.filter((c) => isPrimaryId(c.id));
+                const customs = others.filter((c) => !isPrimaryId(c.id));
+                return (
+                  <>
+                    {primaries.length > 0 && (
+                      <ul className="px-3 pt-3 space-y-2">{primaries.map(renderRow)}</ul>
+                    )}
+                    {primaries.length > 0 && customs.length > 0 && (
+                      <div className="mx-7 my-3 h-px bg-paper/[0.06]" />
+                    )}
+                    {customs.length > 0 && (
+                      <ul className="px-3 pb-3 space-y-2">{customs.map(renderRow)}</ul>
+                    )}
+                    {others.length === 0 && (
+                      <ul className="px-3 py-3">
+                        <li className="px-4 py-3 text-[12px] text-paper/35">
+                          No tienes otras listas aún
+                        </li>
+                      </ul>
+                    )}
+                  </>
+                );
+              })()}
 
               {/* create new — sticky footer-ish */}
               <div className="px-6 py-4 mt-2 border-t border-paper/[0.04]">
