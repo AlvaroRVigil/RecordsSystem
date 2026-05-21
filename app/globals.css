@@ -24,6 +24,35 @@ body {
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* minimal scrollbar for overlay panels */
+[data-scrollable]::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+[data-scrollable]::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-scrollable]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+[data-scrollable]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+[data-scrollable] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+/* darker thumb when the panel has a light background (Are.na-style) */
+.bg-\[\#fbf7f2\] [data-scrollable]::-webkit-scrollbar-thumb,
+.bg-paper [data-scrollable]::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+.bg-\[\#fbf7f2\] [data-scrollable]::-webkit-scrollbar-thumb:hover,
+.bg-paper [data-scrollable]::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
+}
+
 ::selection {
   background: var(--paper);
   color: var(--ink);

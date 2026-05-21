@@ -29,7 +29,7 @@ function norm(s: string) {
 async function discogsSearch(params: Record<string, string>) {
   const url = new URL("https://api.discogs.com/database/search");
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-  url.searchParams.set("per_page", "50");
+  url.searchParams.set("per_page", "100");
   const r = await fetch(url, {
     headers: { "User-Agent": UA, Authorization: `Discogs token=${TOKEN}` },
     next: { revalidate: 60 },
@@ -50,48 +50,94 @@ export async function GET(req: NextRequest) {
   const variants = raw === stripped ? [raw] : [raw, stripped];
   const normQ = norm(raw);
 
-  // Run many parallel searches to maximise coverage:
-  //  - artist (with AND without accents) → fans of strict artist matching
-  //  - release_title (with AND without accents)
-  //  - q generic (with AND without)
-  //  - type=master with q (groups all editions, broadens coverage)
+  // Broad queries — we rely on the soft post-filter (drops explicit CDs /
+  // cassettes / digital) and on scoring to surface vinyl results, instead of
+  // a strict server-side format filter that was hiding too many edge cases
+  // (soundtracks, reissues, etc).
   const queries: Record<string, string>[] = [];
   for (const v of variants) {
     queries.push({ artist: v, type: "release" });
     queries.push({ release_title: v, type: "release" });
-    queries.push({ q: v, type: "release" });
-    queries.push({ q: v, type: "master" });
+    queries.push({ query: v, type: "release" });
+    queries.push({ query: v, type: "master" });
+    queries.push({ artist: v, type: "master" });
+
+    // Multi-word queries: try splitting into "artist + release" pairs at every
+    // boundary. Eg. "etta james at last" → tries artist=etta + title=james at last,
+    // artist=etta james + title=at last, artist=etta james at + title=last, …
+    // Captures cases where Discogs's q= doesn't tokenise nicely (album titled
+    // "At Last!", artist "Etta James", etc.).
+    const tokens = v.split(/\s+/);
+    if (tokens.length >= 2) {
+      for (let i = 1; i < tokens.length; i++) {
+        const artist = tokens.slice(0, i).join(" ");
+        const title = tokens.slice(i).join(" ");
+        queries.push({ artist, release_title: title, type: "release" });
+        queries.push({ artist, release_title: title, type: "master" });
+      }
+    }
   }
 
   const all = await Promise.all(queries.map(discogsSearch));
 
-  // dedupe: prefer master_id when present; else release id
-  const seen = new Set<string>();
-  const merged: DiscogsResult[] = [];
-  for (const list of all) {
-    for (const r of list) {
-      // skip non-releases for our purposes (masters return separately but we
-      // want a release id to link to)
-      const key = r.master_id ? `m${r.master_id}` : `r${r.id}-${r.type ?? ""}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      merged.push(r);
+  // dedupe by master_id, preferring RELEASES over masters (releases carry
+  // format / cover / year info we need; masters are sparser).
+  const flat = all.flat();
+  const byKey = new Map<string, DiscogsResult>();
+  for (const r of flat) {
+    const key = r.master_id ? `m${r.master_id}` : `r${r.id}-${r.type ?? ""}`;
+    const prev = byKey.get(key);
+    if (!prev) {
+      byKey.set(key, r);
+    } else if (prev.type === "master" && r.type === "release") {
+      // upgrade: master → release
+      byKey.set(key, r);
+    } else if (
+      prev.type === "release" &&
+      r.type === "release" &&
+      (r.format ?? []).some((f) => /vinyl|lp/i.test(f)) &&
+      !(prev.format ?? []).some((f) => /vinyl|lp/i.test(f))
+    ) {
+      // upgrade: non-vinyl release → vinyl release (same master)
+      byKey.set(key, r);
     }
   }
+  const merged = Array.from(byKey.values());
 
-  // Score: artist match > title contains > vinyl > popularity
-  const scored = merged.map((r) => {
+  // Soft post-filter: drop ONLY releases that explicitly mention a non-vinyl
+  // format AND don't ALSO mention vinyl. Releases with empty/odd format
+  // strings stay (Discogs has lots of these). Masters always stay.
+  const isVinylFmt = (r: DiscogsResult) =>
+    (r.format ?? []).some((f) => /vinyl|lp|7"|10"|12"/i.test(f));
+  const isExplicitlyNonVinyl = (r: DiscogsResult) => {
+    const fmts = r.format ?? [];
+    if (fmts.length === 0) return false; // no info → keep
+    return fmts.some((f) => /\bcd\b|cassette|file|flac|mp3|\btape\b|dvd|stream/i.test(f)) && !isVinylFmt(r);
+  };
+  const vinylOnly = merged.filter((r) => r.type === "master" || !isExplicitlyNonVinyl(r));
+
+  const scored = vinylOnly.map((r) => {
     const title = norm(r.title ?? "");
     const startsWithArtist =
       title.startsWith(`${normQ} -`) || title.startsWith(`${normQ} `);
     const containsAll = normQ.split(" ").every((t) => t && title.includes(t));
-    const isVinyl = (r.format ?? []).some((f) => /vinyl|lp|7"|10"|12"/i.test(f));
+    // exact phrase match → user probably wants the canonical release
+    const containsPhrase = normQ.length > 3 && title.includes(normQ);
+    const fmts = r.format ?? [];
+    const isVinyl = isVinylFmt(r);
+    const isAlbum = fmts.some((f) => /\balbum\b/i.test(f));
+    const isSingle = fmts.some((f) => /single|7"/i.test(f));
+    const isCompilation = fmts.some((f) => /compilation/i.test(f));
     const isMaster = r.type === "master";
     let score = 0;
     if (startsWithArtist) score += 100;
+    if (containsPhrase) score += 60;
     if (containsAll) score += 30;
-    if (isVinyl) score += 15;
-    if (isMaster) score += 10; // masters represent canonical works
+    if (isVinyl) score += 40;
+    if (isAlbum) score += 25; // prefer full albums
+    if (isSingle) score -= 30; // demote 7" singles of theme songs
+    if (isCompilation) score -= 5;
+    if (isMaster) score += 10;
     score += Math.min(60, Math.log1p(r.community?.want ?? 0) * 6);
     if (r.year && r.year > 1950) score += 1;
     return { r, score };
@@ -99,14 +145,13 @@ export async function GET(req: NextRequest) {
   scored.sort((a, b) => b.score - a.score);
 
   // Return up to 30 results so the user gets variety
+  // strip Discogs' disambiguator suffixes like "Rosalía (3) - Lux" → "Rosalía - Lux"
+  const cleanTitle = (s: string) => s.replace(/\s\(\d+\)/g, "");
+
   const results = scored.slice(0, 30).map(({ r }) => ({
-    // for master entries we want the user to add a representative release
-    // (Discogs masters don't have releaseId directly; we'll re-resolve in
-    // /api/discogs/release by id type — for now passing the id always works
-    // because /releases/{id} accepts release ids; masters need /masters/{id}/main_release)
     id: r.id,
     isMaster: r.type === "master",
-    title: r.title,
+    title: cleanTitle(r.title ?? ""),
     year: r.year,
     country: r.country,
     label: Array.isArray(r.label) ? r.label[0] : r.label,

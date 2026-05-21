@@ -1,7 +1,27 @@
+export type SortMode =
+  | "custom"
+  | "added"
+  | "year"
+  | "artistAZ"
+  | "artistZA"
+  | "titleAZ"
+  | "titleZA";
+
+export const SORT_LABELS: Record<SortMode, string> = {
+  custom: "Personalizado",
+  added: "Fecha de incorporación",
+  year: "Año del álbum",
+  artistAZ: "Artista A–Z",
+  artistZA: "Artista Z–A",
+  titleAZ: "Álbum A–Z",
+  titleZA: "Álbum Z–A",
+};
+
 export type Collection = {
   id: string;
   name: string;
   vinylIds: string[];
+  sortBy?: SortMode;
 };
 
 const KEY = "vinilos.collections.v1";
@@ -39,5 +59,30 @@ export function saveActiveId(id: string) {
 }
 
 export function newCollection(name: string): Collection {
-  return { id: `col-${Date.now()}`, name, vinylIds: [] };
+  return { id: `col-${Date.now()}`, name, vinylIds: [], sortBy: "custom" };
+}
+
+import type { Vinyl } from "./types";
+
+export function sortedVinylIds(c: Collection, all: Vinyl[]): string[] {
+  const items = c.vinylIds
+    .map((id) => all.find((v) => v.id === id))
+    .filter((v): v is Vinyl => !!v);
+  const sortBy = c.sortBy ?? "custom";
+  let out = items;
+  if (sortBy === "added") {
+    // most recently added first; vinylIds is the insertion order, so reverse it
+    out = [...items].reverse();
+  } else if (sortBy === "year") {
+    out = [...items].sort((a, b) => (a.year || 0) - (b.year || 0));
+  } else if (sortBy === "artistAZ") {
+    out = [...items].sort((a, b) => a.artist.localeCompare(b.artist));
+  } else if (sortBy === "artistZA") {
+    out = [...items].sort((a, b) => b.artist.localeCompare(a.artist));
+  } else if (sortBy === "titleAZ") {
+    out = [...items].sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortBy === "titleZA") {
+    out = [...items].sort((a, b) => b.title.localeCompare(a.title));
+  }
+  return out.map((v) => v.id);
 }

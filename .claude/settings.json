@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('count:', len\\(d.get\\('results',[]\\)\\)\\); [print\\(' ', r.get\\('title'\\), r.get\\('format',[]\\)\\) for r in d.get\\('results',[]\\)[:5]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('count:', len\\(d.get\\('results',[]\\)\\)\\); [print\\(' ', r.get\\('title'\\)\\) for r in d.get\\('results',[]\\)[:5]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('count:', len\\(d.get\\('results',[]\\)\\)\\); [print\\(' ', r.get\\('title'\\), r.get\\('year','?'\\)\\) for r in d.get\\('results',[]\\)[:5]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('count:', len\\(d.get\\('results',[]\\)\\)\\);[print\\(' ', r.get\\('title'\\)\\) for r in d.get\\('results',[]\\)[:3]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'count: {len\\(d.get\\(\\\\\"results\\\\\",[]\\)\\)}'\\)\")"
+    ]
+  }
+}

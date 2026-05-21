@@ -64,15 +64,15 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
   const camX = 0;
   const camY = 0.3;
   const lights = {
-    ambient: 0.7,
+    ambient: 1.6,
     light1X: 2,
     light1Y: 0,
     light1Z: 14,
-    light1Intensity: 2,
+    light1Intensity: 4,
     light2X: -2,
     light2Y: 0,
     light2Z: 14,
-    light2Intensity: 2,
+    light2Intensity: 4,
   };
   const fov = 28;
   const stripY = -1.1;
@@ -99,24 +99,31 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
 
 
 
+  const LOOP_THRESHOLD = 8;
   const goToIdx = (idx: number) => {
     const N = vinilos.length;
+    if (N <= LOOP_THRESHOLD) {
+      target.current = Math.max(0, Math.min(N - 1, idx));
+      return;
+    }
     const cur = target.current;
     const curMod = ((cur % N) + N) % N;
     const delta = ((idx - curMod + N + N / 2) % N) - N / 2;
     target.current = cur + delta;
   };
 
+  const stepTarget = (dir: 1 | -1) => {
+    const N = vinilos.length;
+    const next = Math.round(target.current) + dir;
+    target.current = N <= LOOP_THRESHOLD ? Math.max(0, Math.min(N - 1, next)) : next;
+  };
+
   useImperativeHandle(
     ref,
     () => ({
       goTo: goToIdx,
-      next: () => {
-        target.current = Math.round(target.current) + 1;
-      },
-      prev: () => {
-        target.current = Math.round(target.current) - 1;
-      },
+      next: () => stepTarget(1),
+      prev: () => stepTarget(-1),
       open: (idx: number) => {
         goToIdx(idx);
         openTarget.current = 1;
@@ -135,14 +142,23 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
     const el = containerRef.current;
     if (!el) return;
 
+    const clampToList = (v: number) => {
+      const N = vinilos.length;
+      if (N > LOOP_THRESHOLD) return v; // loop allowed → no clamp
+      return Math.max(0, Math.min(N - 1, v));
+    };
+
     const onWheel = (e: WheelEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName;
+      const t = e.target as HTMLElement | null;
+      if (!t) return;
+      const tag = t.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
-      // disable carousel scrolling while a vinyl is opened
+      // let scrolling pass through inside any overlay that opts in
+      if (t.closest("[data-scrollable]")) return;
       if (openTarget.current > 0) return;
       e.preventDefault();
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      target.current += delta * 0.005;
+      target.current = clampToList(target.current + delta * 0.005);
     };
     // attach to window so overlays / backdrops don't block scrolling
     window.addEventListener("wheel", onWheel, { passive: false });
@@ -165,12 +181,12 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
       if (!dragging) return;
       const dx = e.clientX - startX;
       if (Math.abs(dx) > 4) moved = true;
-      target.current = startT - dx * 0.01;
+      target.current = clampToList(startT - dx * 0.01);
     };
     const onUp = () => {
       if (!dragging) return;
       dragging = false;
-      target.current = Math.round(target.current);
+      target.current = clampToList(Math.round(target.current));
       if (moved) {
         // swallow the synthetic click that follows a drag
         const stop = (ev: Event) => {
@@ -188,8 +204,8 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
 
     const onKey = (e: KeyboardEvent) => {
       if (openTarget.current > 0) return;
-      if (e.key === "ArrowRight") target.current += 1;
-      else if (e.key === "ArrowLeft") target.current -= 1;
+      if (e.key === "ArrowRight") target.current = clampToList(target.current + 1);
+      else if (e.key === "ArrowLeft") target.current = clampToList(target.current - 1);
     };
     window.addEventListener("keydown", onKey);
 
@@ -215,7 +231,7 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
     >
       <Canvas
         dpr={[1, 2]}
-        gl={{ toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1 }}
+        gl={{ toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
       >
         <PerspectiveCamera makeDefault position={[camX, camY, zoom]} fov={fov} />
         <color attach="background" args={["#0a0a0a"]} />
@@ -327,7 +343,12 @@ function Strip({
   const urls = useMemo(() => vinilos.map(coverFor), [vinilos]);
   useLoader(THREE.TextureLoader, urls);
 
-  const copies = Math.max(1, Math.ceil((2 * visibleX) / (N * spacing)));
+  // loop only if the collection is big enough — otherwise users would see
+  // the same 5 vinyls repeated again right next to themselves
+  const LOOP_THRESHOLD = 8;
+  const enableLoop = N > LOOP_THRESHOLD;
+  const copies = enableLoop ? Math.max(1, Math.ceil((2 * visibleX) / (N * spacing))) : 1;
+  const modulus = enableLoop ? N * copies : Number.POSITIVE_INFINITY;
 
   const stripGroupRef = useRef<THREE.Group>(null);
 
@@ -419,7 +440,7 @@ function Strip({
             key={`${v.id}-${c}`}
             vinyl={v}
             baseIndex={i + c * N}
-            modulus={N * copies}
+            modulus={modulus}
             currentRef={currentRef}
             openProgressRef={openProgressRef}
             spacing={spacing}
@@ -606,14 +627,23 @@ function Sleeve({
 
     const centerWeight = Math.max(0, 1 - Math.abs(x) / (spacing * 0.6));
 
-    const flipFactor = flipPhase * centerWeight;
+    // Sharp flip: only sleeves VERY close to center (|x| < spacing * 0.15)
+    // are flipped — sleeves moving in or out of the centre stay spine-forward
+    // (slim profile) so they never sweep through neighbours.  Achieved with a
+    // steep power curve on centerWeight: low centerWeight → ~0, only spikes
+    // close to 1.
+    const flipReadyness = Math.pow(centerWeight, 5);
+    const flipFactor = flipPhase * flipReadyness;
     meshGroupRef.current.rotation.y = baseRot * (1 - flipFactor);
 
     // hover lift fades out as we open
-    const hoverEased = 1 - Math.pow(1 - hoverRef.current, 3); // easeOutCubic
+    const hoverEased = 1 - Math.pow(1 - hoverRef.current, 3);
     const hoverLiftValue = hoverEased * hoverLift * (1 - open);
     meshGroupRef.current.position.x = x;
-    meshGroupRef.current.position.y = movePhase * centerWeight * 4.4 + hoverLiftValue;
+    // lift uses a softer curve so neighbours still rise nicely as they slide
+    // toward centre — only the FLIP is sharply gated, not the lift itself
+    const liftReadyness = Math.pow(centerWeight, 1.4);
+    meshGroupRef.current.position.y = movePhase * liftReadyness * 4.4 + hoverLiftValue;
 
     // non-active sleeves fade away while opened
     const opacityFactor = open > 0.05

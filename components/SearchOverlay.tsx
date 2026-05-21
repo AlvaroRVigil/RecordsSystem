@@ -41,17 +41,22 @@ export default function SearchOverlay({ open, onClose, onAdded }: Props) {
       setResults([]);
       return;
     }
+    let cancelled = false;
     const handle = setTimeout(async () => {
       setLoading(true);
       try {
         const r = await fetch(`/api/discogs/search?q=${encodeURIComponent(q)}`);
         const data = await r.json();
+        if (cancelled) return; // a newer search supersedes us
         setResults(data.results ?? []);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }, 300);
-    return () => clearTimeout(handle);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
   }, [q]);
 
   const add = async (r: SearchResult) => {
@@ -90,14 +95,19 @@ export default function SearchOverlay({ open, onClose, onAdded }: Props) {
         aria-label="close search"
       />
       <div className="relative w-full max-w-[640px] mx-6">
-        <input
-          ref={inputRef}
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Buscar en Discogs…"
-          className="w-full bg-transparent border-b border-paper/20 py-4 text-[18px] text-paper outline-none placeholder:text-paper/30"
-        />
-        <div className="mt-4 max-h-[60vh] overflow-y-auto">
+        <div className="flex items-center gap-3 border-b border-paper/20">
+          <input
+            ref={inputRef}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Buscar en Discogs…"
+            className="flex-1 bg-transparent py-4 text-[18px] text-paper outline-none placeholder:text-paper/30"
+          />
+          <kbd className="mono inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-[3px] border border-paper/20 text-[10px] text-paper/45">
+            Esc
+          </kbd>
+        </div>
+        <div data-scrollable className="mt-4 max-h-[60vh] overflow-y-auto">
           {loading && <div className="text-paper/50 text-sm py-3">Buscando…</div>}
           {!loading && results.length === 0 && q.trim() && (
             <div className="text-paper/50 text-sm py-3">Sin resultados</div>

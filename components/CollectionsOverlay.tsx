@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import type { Collection } from "@/lib/collections";
+import { useEffect, useMemo, useState } from "react";
+import { type Collection, type SortMode, SORT_LABELS, sortedVinylIds, DEFAULT_ID } from "@/lib/collections";
 import type { Vinyl } from "@/lib/types";
 
 type Props = {
@@ -14,8 +14,40 @@ type Props = {
   onRename: (id: string, name: string) => void;
   onDelete: (id: string) => void;
   onToggleVinyl: (collectionId: string, vinylId: string) => void;
+  onSetSort: (collectionId: string, sortBy: SortMode) => void;
+  onReorder: (collectionId: string, fromIdx: number, toIdx: number) => void;
   allVinilos: Vinyl[];
 };
+
+function vinylsOf(c: Collection, all: Vinyl[]) {
+  return c.vinylIds
+    .map((id) => all.find((v) => v.id === id))
+    .filter((v): v is Vinyl => !!v);
+}
+
+function statsFor(c: Collection, all: Vinyl[]) {
+  const vs = vinylsOf(c, all);
+  if (vs.length === 0) {
+    return { count: 0, last: null as Vinyl | null, topGenre: null, decades: null, artists: 0 };
+  }
+  const last = vs[vs.length - 1];
+  const genreCount = new Map<string, number>();
+  vs.forEach((v) => {
+    if (v.genre) genreCount.set(v.genre, (genreCount.get(v.genre) ?? 0) + 1);
+  });
+  const topGenre = [...genreCount.entries()].sort((a, b) => b[1] - a[1])[0];
+  const years = vs.map((v) => v.year).filter((y) => y && y > 1900);
+  const minY = years.length ? Math.min(...years) : null;
+  const maxY = years.length ? Math.max(...years) : null;
+  const decades =
+    minY && maxY
+      ? minY === maxY
+        ? `${minY}`
+        : `${Math.floor(minY / 10) * 10}s – ${Math.floor(maxY / 10) * 10}s`
+      : null;
+  const artists = new Set(vs.map((v) => v.artist)).size;
+  return { count: vs.length, last, topGenre, decades, artists };
+}
 
 export default function CollectionsOverlay({
   open,
@@ -27,150 +59,409 @@ export default function CollectionsOverlay({
   onRename,
   onDelete,
   onToggleVinyl,
+  onSetSort,
+  onReorder,
   allVinilos,
 }: Props) {
   const [editId, setEditId] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
+  const [renaming, setRenaming] = useState(false);
 
-  if (!open) return null;
+  useEffect(() => {
+    if (!open) {
+      setEditId(null);
+      setNewName("");
+      setRenaming(false);
+    }
+  }, [open]);
 
   const editing = editId ? collections.find((c) => c.id === editId) : null;
+  const active = collections.find((c) => c.id === activeId);
+  const others = collections.filter((c) => c.id !== activeId);
+  const activeStats = useMemo(
+    () => (active ? statsFor(active, allVinilos) : null),
+    [active, allVinilos],
+  );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm pt-[10vh]">
-      <div className="absolute inset-0" onClick={onClose} />
-      <div className="relative w-full max-w-[680px] mx-6 bg-ink/95 border border-paper/10 rounded-md p-6 max-h-[80vh] overflow-y-auto">
-        {!editing ? (
-          <>
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="font-serif italic text-2xl">Colecciones</h2>
-              <button
-                onClick={onClose}
-                className="text-paper/40 hover:text-paper text-xs uppercase tracking-[0.2em]"
-              >
-                Cerrar
-              </button>
-            </div>
+    <>
+      <div
+        onClick={onClose}
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-500 ${
+          open ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      />
 
-            <ul className="divide-y divide-paper/10">
-              {collections.map((c) => {
-                const isActive = c.id === activeId;
-                return (
-                  <li key={c.id} className="flex items-center gap-3 py-3">
-                    <button
-                      onClick={() => {
-                        onActivate(c.id);
-                        onClose();
+      <aside
+        className={`fixed top-0 left-0 bottom-0 z-50 w-full max-w-[380px] bg-[#0a0a0a] text-paper border-r border-paper/[0.04] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col">
+          <header className="flex items-center justify-between px-6 pt-6 pb-3">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-paper/40">
+              {editing ? "Editar lista" : "Listas"}
+            </span>
+            <button
+              onClick={editing ? () => setEditId(null) : onClose}
+              className="text-[11px] uppercase tracking-[0.2em] text-paper/40 hover:text-paper transition"
+            >
+              {editing ? "← Atrás" : "Cerrar"}
+            </button>
+          </header>
+
+          {editing ? (
+            <EditPanel
+              editing={
+                editing.id === DEFAULT_ID
+                  ? { ...editing, vinylIds: allVinilos.map((v) => v.id) }
+                  : editing
+              }
+              allVinilos={allVinilos}
+              isPrimary={editing.id === DEFAULT_ID}
+              onRename={onRename}
+              onToggleVinyl={onToggleVinyl}
+              onSetSort={onSetSort}
+              onReorder={onReorder}
+            />
+          ) : (
+            <div data-scrollable className="flex-1 overflow-y-auto">
+              {active && (
+                <section className="px-6">
+                  {/* title */}
+                  {renaming ? (
+                    <input
+                      autoFocus
+                      defaultValue={active.name}
+                      onBlur={(e) => {
+                        const v = e.target.value.trim();
+                        if (v && v !== active.name) onRename(active.id, v);
+                        setRenaming(false);
                       }}
-                      className="flex-1 flex items-center gap-3 text-left"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                        if (e.key === "Escape") setRenaming(false);
+                      }}
+                      className="w-full bg-transparent border-b border-paper/20 py-1 text-[22px] font-medium text-paper outline-none focus:border-paper/60"
+                    />
+                  ) : (
+                    <h2 className="text-[22px] font-medium leading-tight tracking-tight">
+                      {active.name}
+                    </h2>
+                  )}
+
+                  {activeStats && activeStats.count > 0 && (
+                    <p className="mt-2 text-[12px] text-paper/45">
+                      {activeStats.count} discos · {activeStats.artists} artistas
+                    </p>
+                  )}
+
+                  {/* metadata table (Are.na style) */}
+                  {activeStats && activeStats.count > 0 && (
+                    <dl className="mt-5 text-[13px]">
+                      <Row label="Discos" value={String(activeStats.count)} />
+                      {activeStats.last && (
+                        <Row label="Última inc." value={activeStats.last.title} />
+                      )}
+                      {activeStats.topGenre && (
+                        <Row
+                          label="Top género"
+                          value={`${activeStats.topGenre[0]} · ${activeStats.topGenre[1]}`}
+                        />
+                      )}
+                      {activeStats.decades && (
+                        <Row label="Décadas" value={activeStats.decades} />
+                      )}
+                    </dl>
+                  )}
+
+                  {/* action row */}
+                  <div className="mt-5 flex items-center gap-2 rounded-md border border-paper/[0.06] p-2">
+                    <button
+                      onClick={() => setEditId(active.id)}
+                      className="flex-1 text-[12px] py-1.5 px-3 rounded-sm bg-paper/5 hover:bg-paper/10 text-paper transition"
                     >
-                      <span
-                        className={`h-2 w-2 rounded-full ${
-                          isActive ? "bg-paper" : "bg-paper/20"
-                        }`}
-                      />
-                      <span className={`text-[15px] ${isActive ? "text-paper" : "text-paper/70"}`}>
-                        {c.name}
-                      </span>
-                      <span className="text-[11px] text-paper/40">
-                        · {c.vinylIds.length} discos
-                      </span>
+                      Editar discos →
                     </button>
                     <button
-                      onClick={() => setEditId(c.id)}
-                      className="text-[11px] uppercase tracking-[0.18em] text-paper/50 hover:text-paper transition"
+                      onClick={() => setRenaming(true)}
+                      className="text-[12px] py-1.5 px-3 rounded-sm hover:bg-paper/5 text-paper/70 hover:text-paper transition"
                     >
-                      Editar
+                      Renombrar
                     </button>
-                    {collections.length > 1 && (
+                    {collections.length > 1 && active.id !== DEFAULT_ID && (
                       <button
                         onClick={() => {
-                          if (confirm(`Eliminar "${c.name}"?`)) onDelete(c.id);
+                          if (confirm(`Eliminar "${active.name}"?`)) onDelete(active.id);
                         }}
-                        className="text-[11px] uppercase tracking-[0.18em] text-paper/30 hover:text-red-400 transition"
+                        className="text-[12px] py-1.5 px-3 rounded-sm hover:bg-red-500/10 text-paper/35 hover:text-red-400 transition"
                       >
                         Borrar
                       </button>
                     )}
-                  </li>
-                );
-              })}
-            </ul>
+                  </div>
+                </section>
+              )}
 
-            <div className="mt-6 flex items-center gap-2 border-t border-paper/10 pt-4">
-              <input
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && newName.trim()) {
-                    onCreate(newName.trim());
-                    setNewName("");
-                  }
-                }}
-                placeholder="Nombre de la nueva colección"
-                className="flex-1 bg-transparent border-b border-paper/20 py-2 text-sm outline-none placeholder:text-paper/30"
-              />
-              <button
-                onClick={() => {
-                  if (newName.trim()) {
-                    onCreate(newName.trim());
-                    setNewName("");
-                  }
-                }}
-                disabled={!newName.trim()}
-                className="text-[11px] uppercase tracking-[0.18em] text-paper/70 hover:text-paper transition disabled:opacity-30"
-              >
-                Crear
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex items-center justify-between mb-5 gap-3">
-              <button
-                onClick={() => setEditId(null)}
-                className="text-[11px] uppercase tracking-[0.2em] text-paper/50 hover:text-paper transition"
-              >
-                ← Volver
-              </button>
-              <input
-                defaultValue={editing.name}
-                onBlur={(e) => onRename(editing.id, e.target.value.trim() || editing.name)}
-                className="flex-1 bg-transparent border-b border-paper/20 py-1 text-lg outline-none"
-              />
-            </div>
-            <div className="text-[11px] uppercase tracking-[0.18em] text-paper/40 mb-3">
-              Vinilos en esta colección — {editing.vinylIds.length} / {allVinilos.length}
-            </div>
-            <ul className="grid grid-cols-2 gap-1 max-h-[50vh] overflow-y-auto pr-2">
-              {allVinilos.map((v) => {
-                const inCol = editing.vinylIds.includes(v.id);
-                return (
-                  <li key={v.id}>
-                    <button
-                      onClick={() => onToggleVinyl(editing.id, v.id)}
-                      className={`w-full flex items-center gap-2 py-1.5 px-2 text-left rounded text-[12px] transition ${
-                        inCol
-                          ? "bg-paper/10 text-paper"
-                          : "text-paper/50 hover:bg-paper/5"
-                      }`}
-                    >
-                      <span
-                        className={`h-2 w-2 rounded-full ${
-                          inCol ? "bg-paper" : "border border-paper/30"
-                        }`}
-                      />
-                      <span className="truncate">
-                        {v.artist} — {v.title}
-                      </span>
-                    </button>
+              {/* divider section */}
+              <div className="mt-7 px-6 pb-3 border-b border-paper/[0.04]">
+                <span className="text-[11px] uppercase tracking-[0.2em] text-paper/40">
+                  Otras listas {others.length > 0 && `· ${others.length}`}
+                </span>
+              </div>
+
+              {/* other lists — cards */}
+              <ul className="px-3 py-3 space-y-2">
+                {others.map((c) => {
+                  const s = statsFor(c, allVinilos);
+                  return (
+                    <li key={c.id}>
+                      <button
+                        onClick={() => {
+                          onActivate(c.id);
+                          onClose();
+                        }}
+                        className="w-full flex items-center px-4 py-3 rounded-md bg-paper/[0.04] hover:bg-paper/8 transition text-left"
+                      >
+                        <span className="flex-1 text-[14px] text-paper truncate">
+                          {c.name}
+                        </span>
+                        <span className="text-[12px] text-paper/40 ml-3">
+                          {s.count} discos
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+                {others.length === 0 && (
+                  <li className="px-4 py-3 text-[12px] text-paper/35">
+                    No tienes otras listas aún
                   </li>
-                );
-              })}
+                )}
+              </ul>
+
+              {/* create new — sticky footer-ish */}
+              <div className="px-6 py-4 mt-2 border-t border-paper/[0.04]">
+                <div className="flex items-center gap-3">
+                  <input
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && newName.trim()) {
+                        onCreate(newName.trim());
+                        setNewName("");
+                      }
+                    }}
+                    placeholder="Nueva lista"
+                    className="flex-1 bg-transparent border-b border-paper/[0.07] py-1.5 text-[13px] text-paper outline-none placeholder:text-paper/30 focus:border-paper/60 transition"
+                  />
+                  <button
+                    onClick={() => {
+                      if (newName.trim()) {
+                        onCreate(newName.trim());
+                        setNewName("");
+                      }
+                    }}
+                    disabled={!newName.trim()}
+                    className="text-[11px] uppercase tracking-[0.18em] text-paper/60 hover:text-paper transition disabled:opacity-25"
+                  >
+                    Crear
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+    </>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline gap-3 py-1.5 border-b border-paper/[0.04] last:border-b-0">
+      <dt className="text-paper/40 w-[32%]">{label}</dt>
+      <dd className="flex-1 text-right text-paper/85 truncate">{value}</dd>
+    </div>
+  );
+}
+
+function EditPanel({
+  editing,
+  allVinilos,
+  isPrimary,
+  onRename,
+  onToggleVinyl,
+  onSetSort,
+  onReorder,
+}: {
+  editing: Collection;
+  allVinilos: Vinyl[];
+  isPrimary: boolean;
+  onRename: (id: string, name: string) => void;
+  onToggleVinyl: (collectionId: string, vinylId: string) => void;
+  onSetSort: (collectionId: string, sortBy: SortMode) => void;
+  onReorder: (collectionId: string, fromIdx: number, toIdx: number) => void;
+}) {
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [overIdx, setOverIdx] = useState<number | null>(null);
+  const [filter, setFilter] = useState("");
+  const sortBy = editing.sortBy ?? "custom";
+
+  const norm = (s: string) =>
+    s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const matches = (v: Vinyl) =>
+    !filter.trim() ||
+    norm(`${v.title} ${v.artist}`).includes(norm(filter.trim()));
+  const orderedIds = sortedVinylIds(editing, allVinilos);
+  const orderedVinilos = orderedIds
+    .map((id) => allVinilos.find((v) => v.id === id))
+    .filter((v): v is Vinyl => !!v);
+  const notInCol = allVinilos.filter((v) => !editing.vinylIds.includes(v.id));
+
+  return (
+    <>
+      <div className="px-6 pb-3">
+        {isPrimary ? (
+          <div className="py-1.5 text-[18px] text-paper">{editing.name}</div>
+        ) : (
+          <input
+            defaultValue={editing.name}
+            onBlur={(e) => onRename(editing.id, e.target.value.trim() || editing.name)}
+            className="w-full bg-transparent border-b border-paper/[0.07] py-1.5 text-[18px] text-paper outline-none focus:border-paper/60 transition"
+          />
+        )}
+        <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-paper/40">
+          {editing.vinylIds.length} discos
+        </p>
+      </div>
+
+      {/* sort selector */}
+      <div className="px-6 pt-1 pb-2 flex items-center gap-3">
+        <label className="text-[11px] uppercase tracking-[0.2em] text-paper/40 shrink-0">
+          Orden
+        </label>
+        <select
+          value={sortBy}
+          onChange={(e) => onSetSort(editing.id, e.target.value as SortMode)}
+          className="flex-1 bg-transparent border-b border-paper/[0.07] py-1 text-[13px] text-paper outline-none focus:border-paper/60 transition appearance-none cursor-pointer"
+        >
+          {(Object.keys(SORT_LABELS) as SortMode[]).map((m) => (
+            <option key={m} value={m} className="bg-[#0a0a0a]">
+              {SORT_LABELS[m]}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* filter */}
+      <div className="px-6 pb-3">
+        <input
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          placeholder="Filtrar por artista o álbum…"
+          className="w-full bg-transparent border-b border-paper/[0.07] py-1 text-[13px] text-paper outline-none placeholder:text-paper/30 focus:border-paper/60 transition"
+        />
+      </div>
+
+      <div data-scrollable className="flex-1 overflow-y-auto pb-6">
+        {/* items in collection */}
+        <div className="px-6 pt-2 pb-2 text-[11px] uppercase tracking-[0.2em] text-paper/40">
+          En la lista · {orderedVinilos.length}
+        </div>
+        <ul className="px-3">
+          {orderedVinilos.map((v, idx) => {
+            const customIdx = editing.vinylIds.indexOf(v.id);
+            const draggable = sortBy === "custom";
+            const isDragging = dragIdx === customIdx;
+            const isOver = overIdx === customIdx && dragIdx !== null && dragIdx !== customIdx;
+            return (
+              <li
+                key={v.id}
+                draggable={draggable}
+                onDragStart={(e) => {
+                  if (!draggable) return;
+                  setDragIdx(customIdx);
+                  e.dataTransfer.effectAllowed = "move";
+                }}
+                onDragEnd={() => {
+                  setDragIdx(null);
+                  setOverIdx(null);
+                }}
+                onDragOver={(e) => {
+                  if (!draggable || dragIdx === null) return;
+                  e.preventDefault();
+                  e.dataTransfer.dropEffect = "move";
+                  if (overIdx !== customIdx) setOverIdx(customIdx);
+                }}
+                onDrop={(e) => {
+                  if (!draggable || dragIdx === null) return;
+                  e.preventDefault();
+                  if (dragIdx !== customIdx) onReorder(editing.id, dragIdx, customIdx);
+                  setDragIdx(null);
+                  setOverIdx(null);
+                }}
+                className={`group flex items-center gap-2 px-3 py-2 rounded-sm transition ${
+                  isDragging ? "opacity-30" : "hover:bg-paper/[0.04]"
+                } ${isOver ? "bg-paper/[0.08] outline outline-1 outline-paper/20" : ""} ${
+                  draggable ? "cursor-grab active:cursor-grabbing" : ""
+                }`}
+              >
+                {sortBy === "custom" && (
+                  <span
+                    className="text-paper/25 group-hover:text-paper/60 transition leading-none text-[10px] select-none"
+                    aria-hidden
+                  >
+                    ⋮⋮
+                  </span>
+                )}
+                <span className="flex-1 min-w-0 text-[12px] truncate">
+                  <span className="text-paper">{v.title}</span>
+                  <span className="ml-2 text-paper/40">{v.artist}</span>
+                  {v.year ? <span className="ml-2 text-paper/25">{v.year}</span> : null}
+                </span>
+                {!isPrimary && (
+                  <button
+                    onClick={() => onToggleVinyl(editing.id, v.id)}
+                    className="text-[11px] uppercase tracking-[0.16em] text-paper/30 hover:text-red-400 transition px-2 opacity-0 group-hover:opacity-100"
+                    aria-label="Quitar"
+                  >
+                    Quitar
+                  </button>
+                )}
+              </li>
+            );
+          })}
+          {orderedVinilos.length === 0 && (
+            <li className="px-3 py-3 text-[12px] text-paper/35">Lista vacía</li>
+          )}
+        </ul>
+
+        {/* add more */}
+        {notInCol.length > 0 && (
+          <>
+            <div className="mt-6 px-6 pt-2 pb-2 text-[11px] uppercase tracking-[0.2em] text-paper/40 border-t border-paper/[0.04]">
+              Añadir discos · {notInCol.length}
+            </div>
+            <ul className="px-3">
+              {notInCol.map((v) => (
+                <li key={v.id}>
+                  <button
+                    onClick={() => onToggleVinyl(editing.id, v.id)}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-left text-[12px] rounded-sm text-paper/55 hover:bg-paper/[0.04] transition"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full border border-paper/25" />
+                    <span className="truncate flex-1">
+                      <span className="text-paper">{v.title}</span>
+                      <span className="ml-2 text-paper/40">{v.artist}</span>
+                    </span>
+                  </button>
+                </li>
+              ))}
             </ul>
           </>
         )}
       </div>
-    </div>
+    </>
   );
 }

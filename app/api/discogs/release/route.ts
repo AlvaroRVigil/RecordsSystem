@@ -65,9 +65,10 @@ export async function POST(req: NextRequest) {
   if (!r.ok) return Response.json({ error: `discogs ${r.status}` }, { status: r.status });
   const release = await r.json();
 
-  // build a Vinyl entry
-  const artist = release.artists?.[0]?.name ?? "Unknown";
-  const title = (release.title ?? "Untitled").replace(/^\s+|\s+$/g, "");
+  // build a Vinyl entry — strip Discogs' (N) disambiguators
+  const cleanName = (s: string) => s.replace(/\s\(\d+\)/g, "").trim();
+  const artist = cleanName(release.artists?.[0]?.name ?? "Unknown");
+  const title = cleanName(release.title ?? "Untitled");
   const id = `${slugify(artist)}-${slugify(title)}-${releaseId}`;
 
   await mkdir(COVERS_DIR, { recursive: true });

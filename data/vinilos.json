@@ -1,369 +1,598 @@
 [
   {
-    "id": "dark-side-of-the-moon",
-    "title": "The Dark Side of the Moon",
-    "artist": "Pink Floyd",
-    "year": 1973,
-    "genre": "Rock",
-    "label": "Harvest Records",
-    "country": "UK",
-    "palette": [
-      "#000000",
-      "#0a0a0a",
-      "#ff2a2a",
-      "#ffd400",
-      "#1a8fff"
-    ],
-    "discogsId": null,
-    "cover": "/covers/dark-side-of-the-moon.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Speak to Me",
-        "duration": "1:13"
-      },
-      {
-        "position": "A2",
-        "title": "Breathe (In the Air)",
-        "duration": "2:43"
-      },
-      {
-        "position": "A3",
-        "title": "On the Run",
-        "duration": "3:30"
-      },
-      {
-        "position": "A4",
-        "title": "Time",
-        "duration": "6:53"
-      },
-      {
-        "position": "B1",
-        "title": "Money",
-        "duration": "6:30"
-      },
-      {
-        "position": "B2",
-        "title": "Us and Them",
-        "duration": "7:51"
-      },
-      {
-        "position": "B3",
-        "title": "Eclipse",
-        "duration": "2:03"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9e/00/ce/9e00ce3f-e24b-c933-2906-57c9c6adbe64/mzaf_8206572726959166944.plus.aac.p.m4a"
-  },
-  {
-    "id": "random-access-memories",
-    "title": "Random Access Memories",
-    "artist": "Daft Punk",
-    "year": 2013,
-    "genre": "Electronic",
-    "label": "Columbia",
-    "country": "France",
-    "palette": [
-      "#0a0a0a",
-      "#1a1a1a",
-      "#c9a14a",
-      "#e7d6a5",
-      "#000000"
-    ],
-    "discogsId": null,
-    "cover": "/covers/random-access-memories.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Give Life Back to Music",
-        "duration": "4:34"
-      },
-      {
-        "position": "A3",
-        "title": "Giorgio by Moroder",
-        "duration": "9:04"
-      },
-      {
-        "position": "B2",
-        "title": "Instant Crush",
-        "duration": "5:37"
-      },
-      {
-        "position": "C2",
-        "title": "Get Lucky",
-        "duration": "6:07"
-      },
-      {
-        "position": "D4",
-        "title": "Doin' It Right",
-        "duration": "4:11"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ce/15/b1/ce15b154-2b27-9d65-4d12-7736f3e029c2/mzaf_15463046040604482889.plus.aac.p.m4a"
-  },
-  {
-    "id": "in-rainbows",
-    "title": "In Rainbows",
-    "artist": "Radiohead",
-    "year": 2007,
-    "genre": "Alternative",
-    "label": "XL Recordings",
-    "country": "UK",
-    "palette": [
-      "#2a0a0a",
-      "#8b1a1a",
-      "#ff5e3a",
-      "#ffb13a",
-      "#ffe066"
-    ],
-    "discogsId": null,
-    "cover": "/covers/in-rainbows.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "15 Step",
-        "duration": "3:57"
-      },
-      {
-        "position": "A2",
-        "title": "Bodysnatchers",
-        "duration": "4:02"
-      },
-      {
-        "position": "A4",
-        "title": "Weird Fishes/Arpeggi",
-        "duration": "5:18"
-      },
-      {
-        "position": "B2",
-        "title": "Reckoner",
-        "duration": "4:50"
-      },
-      {
-        "position": "B5",
-        "title": "Videotape",
-        "duration": "4:39"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/af/72/85/af728523-8048-4a8b-9e13-e8f4f64e9d69/mzaf_8205306206851675436.plus.aac.p.m4a"
-  },
-  {
-    "id": "currents",
+    "id": "tame-impala-currents-7252111",
     "title": "Currents",
     "artist": "Tame Impala",
     "year": 2015,
-    "genre": "Psychedelic",
-    "label": "Modular Recordings",
-    "country": "Australia",
+    "genre": "Electronic",
+    "label": "Fiction Records",
+    "country": "Europe",
     "palette": [
-      "#f5e6d3",
-      "#e8a5b0",
-      "#a17fb8",
-      "#5d7fb8",
-      "#1a1a2e"
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
     ],
-    "discogsId": null,
-    "cover": "/covers/currents.jpg",
+    "discogsId": 7252111,
+    "cover": "/covers/tame-impala-currents-7252111.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a0/68/85/a06885c8-e338-1352-db1d-fb06f6fbec90/mzaf_16664969365341871263.plus.aac.p.m4a",
     "tracklist": [
       {
         "position": "A1",
         "title": "Let It Happen",
-        "duration": "7:47"
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Nangs",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "The Moment",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Yes I'm Changing",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Eventually",
+        "duration": ""
       },
       {
         "position": "B3",
-        "title": "The Less I Know the Better",
-        "duration": "3:36"
+        "title": "Gossip",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "The Less I Know The Better",
+        "duration": ""
+      },
+      {
+        "position": "C2",
+        "title": "Past Life",
+        "duration": ""
       },
       {
         "position": "C3",
-        "title": "'Cause I'm a Man",
-        "duration": "4:01"
+        "title": "Disciples",
+        "duration": ""
+      },
+      {
+        "position": "C4",
+        "title": "Cause I'm A Man",
+        "duration": ""
+      },
+      {
+        "position": "D1",
+        "title": "Reality In Motion",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "Love / Paranoia",
+        "duration": ""
       },
       {
         "position": "D3",
         "title": "New Person, Same Old Mistakes",
-        "duration": "6:01"
+        "duration": ""
       }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a0/68/85/a06885c8-e338-1352-db1d-fb06f6fbec90/mzaf_16664969365341871263.plus.aac.p.m4a"
+    ]
   },
   {
-    "id": "blue-train",
-    "title": "Blue Train",
-    "artist": "John Coltrane",
-    "year": 1958,
-    "genre": "Jazz",
-    "label": "Blue Note",
-    "country": "USA",
+    "id": "billie-eilish-when-we-all-fall-asleep-where-do-we-go-14405981",
+    "title": "When We All Fall Asleep, Where Do We Go?",
+    "artist": "Billie Eilish",
+    "year": 2019,
+    "genre": "Electronic",
+    "label": "Darkroom (4)",
+    "country": "US",
     "palette": [
-      "#0c2a5e",
-      "#1a4fa3",
-      "#3a7fd6",
-      "#f5f3ee",
-      "#0a0a0a"
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
     ],
-    "discogsId": null,
-    "cover": "/covers/blue-train.jpg",
+    "discogsId": 14405981,
+    "cover": "/covers/billie-eilish-when-we-all-fall-asleep-where-do-we-go-14405981.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/63/5b/04/635b047f-1c4e-3721-3577-38c84d6c5ea8/mzaf_5095189570329788644.plus.aac.p.m4a",
     "tracklist": [
       {
         "position": "A1",
-        "title": "Blue Train",
-        "duration": "10:43"
+        "title": "!!!!!!!",
+        "duration": ""
       },
       {
         "position": "A2",
-        "title": "Moment's Notice",
-        "duration": "9:10"
+        "title": "Bad Guy",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Xanny",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "You Should See Me In A Crown",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "All The Good Girls Go To Hell",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Wish You Were Gay",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "When The Party's Over",
+        "duration": ""
+      },
+      {
+        "position": "B8",
+        "title": "8",
+        "duration": ""
+      },
+      {
+        "position": "B9",
+        "title": "My Strange Addiction",
+        "duration": ""
+      },
+      {
+        "position": "B10",
+        "title": "Bury A Friend",
+        "duration": ""
+      },
+      {
+        "position": "B11",
+        "title": "Ilomilo",
+        "duration": ""
+      },
+      {
+        "position": "B12",
+        "title": "Listen Before I Go",
+        "duration": ""
+      },
+      {
+        "position": "B13",
+        "title": "I Love You",
+        "duration": ""
+      },
+      {
+        "position": "B14",
+        "title": "Goodbye",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "rosalia-3-lux-35578378",
+    "title": "Lux",
+    "artist": "Rosalía (3)",
+    "year": 2025,
+    "genre": "Electronic",
+    "label": "Columbia",
+    "country": "UK & Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 35578378,
+    "cover": "/covers/rosalia-3-lux-35578378.jpg",
+    "previewUrl": null,
+    "tracklist": [
+      {
+        "position": "",
+        "title": "Mov I",
+        "duration": ""
+      },
+      {
+        "position": "A1",
+        "title": "Sexo, Violencia Y Llantas",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Reliquia",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Divinize",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Porcelana",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Mio Cristo",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "Mov II",
+        "duration": ""
       },
       {
         "position": "B1",
-        "title": "Locomotion",
-        "duration": "7:14"
-      },
-      {
-        "position": "B3",
-        "title": "Lazy Bird",
-        "duration": "7:07"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bc/d1/2f/bcd12f28-0219-7104-b158-d0b6220c1417/mzaf_11071638360347654814.plus.aac.p.m4a"
-  },
-  {
-    "id": "good-kid-maad-city",
-    "title": "good kid, m.A.A.d city",
-    "artist": "Kendrick Lamar",
-    "year": 2012,
-    "genre": "Hip-Hop",
-    "label": "Interscope",
-    "country": "USA",
-    "palette": [
-      "#d4c5a0",
-      "#8a7a52",
-      "#3a2f1a",
-      "#0a0a0a",
-      "#c9b88a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/good-kid-maad-city.jpg",
-    "tracklist": [
-      {
-        "position": "A2",
-        "title": "Bitch, Don't Kill My Vibe",
-        "duration": "5:10"
+        "title": "Berghain",
+        "duration": ""
       },
       {
         "position": "B2",
-        "title": "Money Trees",
-        "duration": "6:26"
+        "title": "La Perla",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Mundo Nuevo",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "De Madrugá",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "Mov III",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "Dios Es Un Stalker",
+        "duration": ""
       },
       {
         "position": "C2",
-        "title": "m.A.A.d city",
-        "duration": "5:50"
+        "title": "La Yugular",
+        "duration": ""
       },
       {
         "position": "C3",
-        "title": "Swimming Pools (Drank)",
-        "duration": "5:13"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6c/90/17/6c90173a-ac53-88a7-a13d-2936ad163483/mzaf_9644302068802807207.plus.aac.p.m4a"
-  },
-  {
-    "id": "kind-of-blue",
-    "title": "Kind of Blue",
-    "artist": "Miles Davis",
-    "year": 1959,
-    "genre": "Jazz",
-    "label": "Columbia",
-    "country": "USA",
-    "palette": [
-      "#1a3a5e",
-      "#3a6fa3",
-      "#a8c4e0",
-      "#0a0a0a",
-      "#f5f3ee"
-    ],
-    "discogsId": null,
-    "cover": "/covers/kind-of-blue.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "So What",
-        "duration": "9:22"
+        "title": "Focu ‘Ranni",
+        "duration": ""
       },
       {
-        "position": "A2",
-        "title": "Freddie Freeloader",
-        "duration": "9:46"
+        "position": "C4",
+        "title": "Sauvignon Blanc",
+        "duration": ""
       },
       {
-        "position": "B1",
-        "title": "All Blues",
-        "duration": "11:33"
+        "position": "C5",
+        "title": "Jeanne",
+        "duration": ""
       },
       {
-        "position": "B2",
-        "title": "Flamenco Sketches",
-        "duration": "9:26"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/54/e8/0a/54e80a8b-1d60-6b59-e908-6fd65c4ff783/mzaf_2469862574651846302.plus.aac.p.m4a"
-  },
-  {
-    "id": "ok-computer",
-    "title": "OK Computer",
-    "artist": "Radiohead",
-    "year": 1997,
-    "genre": "Alternative",
-    "label": "Parlophone",
-    "country": "UK",
-    "palette": [
-      "#e8e5d8",
-      "#a8a59a",
-      "#5a5a5a",
-      "#1a1a1a",
-      "#3a5a3a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/ok-computer.jpg",
-    "tracklist": [
-      {
-        "position": "A2",
-        "title": "Paranoid Android",
-        "duration": "6:23"
-      },
-      {
-        "position": "B3",
-        "title": "Karma Police",
-        "duration": "4:21"
+        "position": "",
+        "title": "Mov IV",
+        "duration": ""
       },
       {
         "position": "D1",
-        "title": "No Surprises",
-        "duration": "3:48"
+        "title": "Novia Robot",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "La Rumba Del Perdón",
+        "duration": ""
+      },
+      {
+        "position": "D3",
+        "title": "Memória",
+        "duration": ""
+      },
+      {
+        "position": "D4",
+        "title": "Magnolias",
+        "duration": ""
       }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/be/df/b0/bedfb055-c0be-4fc5-0626-fe763667c47c/mzaf_796757830115551221.plus.aac.p.m4a"
+    ]
   },
   {
-    "id": "rumours",
+    "id": "rosalia-lux-35578378",
+    "title": "Lux",
+    "artist": "Rosalía",
+    "year": 2025,
+    "genre": "Electronic",
+    "label": "Columbia",
+    "country": "UK & Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 35578378,
+    "cover": "/covers/rosalia-lux-35578378.jpg",
+    "previewUrl": null,
+    "tracklist": [
+      {
+        "position": "",
+        "title": "Mov I",
+        "duration": ""
+      },
+      {
+        "position": "A1",
+        "title": "Sexo, Violencia Y Llantas",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Reliquia",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Divinize",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Porcelana",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Mio Cristo",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "Mov II",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Berghain",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "La Perla",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Mundo Nuevo",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "De Madrugá",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "Mov III",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "Dios Es Un Stalker",
+        "duration": ""
+      },
+      {
+        "position": "C2",
+        "title": "La Yugular",
+        "duration": ""
+      },
+      {
+        "position": "C3",
+        "title": "Focu ‘Ranni",
+        "duration": ""
+      },
+      {
+        "position": "C4",
+        "title": "Sauvignon Blanc",
+        "duration": ""
+      },
+      {
+        "position": "C5",
+        "title": "Jeanne",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "Mov IV",
+        "duration": ""
+      },
+      {
+        "position": "D1",
+        "title": "Novia Robot",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "La Rumba Del Perdón",
+        "duration": ""
+      },
+      {
+        "position": "D3",
+        "title": "Memória",
+        "duration": ""
+      },
+      {
+        "position": "D4",
+        "title": "Magnolias",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "billie-eilish-hit-me-hard-and-soft-34773263",
+    "title": "Hit Me Hard And Soft",
+    "artist": "Billie Eilish",
+    "year": 2025,
+    "genre": "Electronic",
+    "label": "Darkroom (4)",
+    "country": "Worldwide",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 34773263,
+    "cover": "/covers/billie-eilish-hit-me-hard-and-soft-34773263.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/95/03/c79503d2-84f3-94e6-6d46-935dfd08a260/mzaf_755778634165222126.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Skinny",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Lunch",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Chihiro",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Birds Of A Feather",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Wildflower",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "The Greatest",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "L'Amour De Ma Vie",
+        "duration": ""
+      },
+      {
+        "position": "B8",
+        "title": "The Diner",
+        "duration": ""
+      },
+      {
+        "position": "B9",
+        "title": "Bittersuite",
+        "duration": ""
+      },
+      {
+        "position": "B10",
+        "title": "Blue",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "eagles-hotel-california-1571555",
+    "title": "Hotel California",
+    "artist": "Eagles",
+    "year": 1976,
+    "genre": "Rock",
+    "label": "Asylum Records",
+    "country": "Scandinavia",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 1571555,
+    "cover": "/covers/eagles-hotel-california-1571555.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a7/1b/f0/a71bf07d-f498-05c9-2c8a-d12af7d019d8/mzaf_11402952498213508559.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Hotel California",
+        "duration": "6:30"
+      },
+      {
+        "position": "A2",
+        "title": "New Kid In Town",
+        "duration": "5:04"
+      },
+      {
+        "position": "A3",
+        "title": "Life In The Fast Lane",
+        "duration": "4:46"
+      },
+      {
+        "position": "A4",
+        "title": "Wasted Time",
+        "duration": "4:55"
+      },
+      {
+        "position": "B1",
+        "title": "Wasted Time (Reprise)",
+        "duration": "1:22"
+      },
+      {
+        "position": "B2",
+        "title": "Victim Of Love",
+        "duration": "4:11"
+      },
+      {
+        "position": "B3",
+        "title": "Pretty Maids All In A Row",
+        "duration": "4:05"
+      },
+      {
+        "position": "B4",
+        "title": "Try And Love Again",
+        "duration": "5:10"
+      },
+      {
+        "position": "B5",
+        "title": "The Last Resort",
+        "duration": "7:25"
+      }
+    ]
+  },
+  {
+    "id": "fleetwood-mac-rumours-526351",
     "title": "Rumours",
     "artist": "Fleetwood Mac",
     "year": 1977,
     "genre": "Rock",
-    "label": "Warner Bros.",
-    "country": "UK/USA",
+    "label": "Warner Bros. Records",
+    "country": "US",
     "palette": [
-      "#1a1a1a",
-      "#5a3a2a",
-      "#c9a677",
-      "#e8d4b0",
-      "#3a2a1a"
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
     ],
-    "discogsId": null,
-    "cover": "/covers/rumours.jpg",
+    "discogsId": 526351,
+    "cover": "/covers/fleetwood-mac-rumours-526351.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/69/e6/4f69e68c-224c-39ce-e80c-6015940fb338/mzaf_8292619002307513028.plus.aac.p.m4a",
     "tracklist": [
       {
         "position": "A1",
@@ -376,886 +605,59 @@
         "duration": "4:14"
       },
       {
+        "position": "A3",
+        "title": "Never Going Back Again",
+        "duration": "2:02"
+      },
+      {
         "position": "A4",
+        "title": "Don't Stop",
+        "duration": "3:11"
+      },
+      {
+        "position": "A5",
         "title": "Go Your Own Way",
         "duration": "3:38"
       },
       {
-        "position": "B3",
+        "position": "A6",
+        "title": "Songbird",
+        "duration": "3:20"
+      },
+      {
+        "position": "B1",
         "title": "The Chain",
         "duration": "4:28"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/69/e6/4f69e68c-224c-39ce-e80c-6015940fb338/mzaf_8292619002307513028.plus.aac.p.m4a"
-  },
-  {
-    "id": "thriller",
-    "title": "Thriller",
-    "artist": "Michael Jackson",
-    "year": 1982,
-    "genre": "Pop",
-    "label": "Epic",
-    "country": "USA",
-    "palette": [
-      "#f5f3ee",
-      "#1a1a1a",
-      "#c9a14a",
-      "#3a2a1a",
-      "#8a6a3a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/thriller.jpg",
-    "tracklist": [
-      {
-        "position": "A2",
-        "title": "Baby Be Mine",
-        "duration": "4:20"
-      },
-      {
-        "position": "A3",
-        "title": "The Girl Is Mine",
-        "duration": "3:42"
-      },
-      {
-        "position": "B1",
-        "title": "Thriller",
-        "duration": "5:57"
       },
       {
         "position": "B2",
-        "title": "Beat It",
-        "duration": "4:18"
+        "title": "You Make Loving Fun",
+        "duration": "3:31"
       },
       {
         "position": "B3",
-        "title": "Billie Jean",
-        "duration": "4:54"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/81/9a/e4/819ae4ff-12b7-35c4-6fca-2923fb16852c/mzaf_10788836398273150393.plus.aac.p.m4a"
-  },
-  {
-    "id": "nevermind",
-    "title": "Nevermind",
-    "artist": "Nirvana",
-    "year": 1991,
-    "genre": "Grunge",
-    "label": "DGC",
-    "country": "USA",
-    "palette": [
-      "#1a4f8a",
-      "#3a7fcb",
-      "#a8d4f5",
-      "#f5f3ee",
-      "#0a2a4f"
-    ],
-    "discogsId": null,
-    "cover": "/covers/nevermind.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Smells Like Teen Spirit",
-        "duration": "5:01"
-      },
-      {
-        "position": "A2",
-        "title": "In Bloom",
-        "duration": "4:14"
-      },
-      {
-        "position": "A3",
-        "title": "Come as You Are",
-        "duration": "3:39"
-      },
-      {
-        "position": "B3",
-        "title": "Lithium",
-        "duration": "4:17"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/67/b3/79/67b379d3-014f-40d0-586f-3bbd4b687535/mzaf_7158109730107323107.plus.aac.p.m4a"
-  },
-  {
-    "id": "abbey-road",
-    "title": "Abbey Road",
-    "artist": "The Beatles",
-    "year": 1969,
-    "genre": "Rock",
-    "label": "Apple",
-    "country": "UK",
-    "palette": [
-      "#3a3a3a",
-      "#7a7a7a",
-      "#c9c9c9",
-      "#f5f3ee",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/abbey-road.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Come Together",
-        "duration": "4:20"
-      },
-      {
-        "position": "A2",
-        "title": "Something",
-        "duration": "3:03"
-      },
-      {
-        "position": "B1",
-        "title": "Here Comes the Sun",
-        "duration": "3:05"
-      },
-      {
-        "position": "B3",
-        "title": "Golden Slumbers",
-        "duration": "1:31"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/97/b5/e4/97b5e459-d7e7-9806-2a87-96a760eca8ea/mzaf_16460868857902969803.plus.aac.p.m4a"
-  },
-  {
-    "id": "led-zeppelin-iv",
-    "title": "Led Zeppelin IV",
-    "artist": "Led Zeppelin",
-    "year": 1971,
-    "genre": "Rock",
-    "label": "Atlantic",
-    "country": "UK",
-    "palette": [
-      "#3a2a1a",
-      "#5a3a2a",
-      "#8a6a3a",
-      "#c9a677",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/led-zeppelin-iv.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Black Dog",
-        "duration": "4:55"
-      },
-      {
-        "position": "A2",
-        "title": "Rock and Roll",
-        "duration": "3:40"
-      },
-      {
-        "position": "B1",
-        "title": "Stairway to Heaven",
-        "duration": "8:02"
-      },
-      {
-        "position": "B3",
-        "title": "When the Levee Breaks",
-        "duration": "7:08"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/05/d9/4d/05d94da2-11d8-dbc0-0080-877ff3a6727d/mzaf_3202083383964343705.plus.aac.p.m4a"
-  },
-  {
-    "id": "songs-in-the-key-of-life",
-    "title": "Songs in the Key of Life",
-    "artist": "Stevie Wonder",
-    "year": 1976,
-    "genre": "Soul",
-    "label": "Tamla",
-    "country": "USA",
-    "palette": [
-      "#8a3a1a",
-      "#c95a2a",
-      "#e89a4a",
-      "#f5d088",
-      "#3a1a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/songs-in-the-key-of-life.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Love's in Need of Love Today",
-        "duration": "7:06"
-      },
-      {
-        "position": "B1",
-        "title": "Sir Duke",
-        "duration": "3:52"
-      },
-      {
-        "position": "B2",
-        "title": "I Wish",
-        "duration": "4:12"
-      },
-      {
-        "position": "D2",
-        "title": "As",
-        "duration": "7:08"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f2/5b/db/f25bdbdc-daf2-920c-3007-26eadb8f720b/mzaf_8655517813682606646.plus.aac.p.m4a"
-  },
-  {
-    "id": "velvet-underground-nico",
-    "title": "The Velvet Underground & Nico",
-    "artist": "The Velvet Underground",
-    "year": 1967,
-    "genre": "Rock",
-    "label": "Verve",
-    "country": "USA",
-    "palette": [
-      "#f5e066",
-      "#e8b03a",
-      "#1a1a1a",
-      "#3a3a3a",
-      "#c98a2a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/velvet-underground-nico.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Sunday Morning",
-        "duration": "2:54"
-      },
-      {
-        "position": "A2",
-        "title": "I'm Waiting for the Man",
-        "duration": "4:39"
-      },
-      {
-        "position": "B1",
-        "title": "Heroin",
-        "duration": "7:12"
-      },
-      {
-        "position": "B3",
-        "title": "Venus in Furs",
-        "duration": "5:12"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4f/4f/d7/4f4fd781-75fa-d0f7-b6b6-54f4eb525f03/mzaf_1100325313778209968.plus.aac.p.m4a"
-  },
-  {
-    "id": "ziggy-stardust",
-    "title": "The Rise and Fall of Ziggy Stardust",
-    "artist": "David Bowie",
-    "year": 1972,
-    "genre": "Glam Rock",
-    "label": "RCA",
-    "country": "UK",
-    "palette": [
-      "#2a1a3a",
-      "#5a3a7a",
-      "#c95aa0",
-      "#f5b0d4",
-      "#0a0a1a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/ziggy-stardust.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Five Years",
-        "duration": "4:42"
-      },
-      {
-        "position": "A4",
-        "title": "Starman",
-        "duration": "4:10"
-      },
-      {
-        "position": "B3",
-        "title": "Ziggy Stardust",
-        "duration": "3:13"
+        "title": "I Don't Want To Know",
+        "duration": "3:11"
       },
       {
         "position": "B4",
-        "title": "Suffragette City",
-        "duration": "3:25"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/03/9f/e6/039fe626-64a1-bb80-010f-85d31baa556e/mzaf_9537798668244648095.plus.aac.p.m4a"
-  },
-  {
-    "id": "horses",
-    "title": "Horses",
-    "artist": "Patti Smith",
-    "year": 1975,
-    "genre": "Punk",
-    "label": "Arista",
-    "country": "USA",
-    "palette": [
-      "#f5f3ee",
-      "#c9c9c9",
-      "#5a5a5a",
-      "#1a1a1a",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/horses.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Gloria",
-        "duration": "5:57"
-      },
-      {
-        "position": "A3",
-        "title": "Birdland",
-        "duration": "9:15"
-      },
-      {
-        "position": "B2",
-        "title": "Land",
-        "duration": "9:25"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f4/ac/0f/f4ac0f16-d919-d024-8b6e-2140467311fe/mzaf_5175574562412187547.plus.aac.p.m4a"
-  },
-  {
-    "id": "unknown-pleasures",
-    "title": "Unknown Pleasures",
-    "artist": "Joy Division",
-    "year": 1979,
-    "genre": "Post-Punk",
-    "label": "Factory",
-    "country": "UK",
-    "palette": [
-      "#0a0a0a",
-      "#1a1a1a",
-      "#3a3a3a",
-      "#f5f3ee",
-      "#5a5a5a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/unknown-pleasures.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Disorder",
-        "duration": "3:30"
-      },
-      {
-        "position": "A2",
-        "title": "Day of the Lords",
-        "duration": "4:48"
-      },
-      {
-        "position": "B1",
-        "title": "She's Lost Control",
-        "duration": "3:58"
+        "title": "Oh Daddy",
+        "duration": "3:54"
       },
       {
         "position": "B5",
-        "title": "I Remember Nothing",
-        "duration": "5:56"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2a/37/29/2a3729c6-413c-0654-2f05-ccef587c7dae/mzaf_18010867471192224238.plus.aac.p.m4a"
-  },
-  {
-    "id": "remain-in-light",
-    "title": "Remain in Light",
-    "artist": "Talking Heads",
-    "year": 1980,
-    "genre": "New Wave",
-    "label": "Sire",
-    "country": "USA",
-    "palette": [
-      "#c92a1a",
-      "#e85a3a",
-      "#f5a07a",
-      "#1a1a1a",
-      "#3a3a3a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/remain-in-light.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Born Under Punches",
-        "duration": "5:46"
-      },
-      {
-        "position": "A2",
-        "title": "Crosseyed and Painless",
-        "duration": "4:45"
-      },
-      {
-        "position": "B1",
-        "title": "Once in a Lifetime",
-        "duration": "4:19"
-      },
-      {
-        "position": "B3",
-        "title": "The Overload",
-        "duration": "6:00"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c0/4a/42/c04a4289-b6ba-cec5-d784-2abb0808b205/mzaf_955547621639036204.plus.aac.p.m4a"
-  },
-  {
-    "id": "nation-of-millions",
-    "title": "It Takes a Nation of Millions to Hold Us Back",
-    "artist": "Public Enemy",
-    "year": 1988,
-    "genre": "Hip-Hop",
-    "label": "Def Jam",
-    "country": "USA",
-    "palette": [
-      "#1a1a1a",
-      "#3a3a3a",
-      "#c92a1a",
-      "#f5f3ee",
-      "#5a0a0a"
-    ],
-    "discogsId": null,
-    "cover": null,
-    "tracklist": [
-      {
-        "position": "A2",
-        "title": "Bring the Noise",
-        "duration": "3:46"
-      },
-      {
-        "position": "A4",
-        "title": "Don't Believe the Hype",
-        "duration": "5:18"
-      },
-      {
-        "position": "B2",
-        "title": "Black Steel in the Hour of Chaos",
-        "duration": "6:24"
-      },
-      {
-        "position": "B6",
-        "title": "Rebel Without a Pause",
-        "duration": "5:01"
-      }
-    ],
-    "previewUrl": null
-  },
-  {
-    "id": "low-end-theory",
-    "title": "The Low End Theory",
-    "artist": "A Tribe Called Quest",
-    "year": 1991,
-    "genre": "Hip-Hop",
-    "label": "Jive",
-    "country": "USA",
-    "palette": [
-      "#c92a1a",
-      "#1a4f3a",
-      "#e8c44a",
-      "#1a1a1a",
-      "#5a3a1a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/low-end-theory.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Excursions",
-        "duration": "3:53"
-      },
-      {
-        "position": "A3",
-        "title": "Buggin' Out",
-        "duration": "3:38"
-      },
-      {
-        "position": "B1",
-        "title": "Jazz (We've Got)",
-        "duration": "4:09"
-      },
-      {
-        "position": "B4",
-        "title": "Check the Rhime",
-        "duration": "3:36"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/13/f1/a4/mzm.audlvrof.aac.p.m4a"
-  },
-  {
-    "id": "dummy",
-    "title": "Dummy",
-    "artist": "Portishead",
-    "year": 1994,
-    "genre": "Trip-Hop",
-    "label": "Go! Beat",
-    "country": "UK",
-    "palette": [
-      "#1a1a1a",
-      "#3a2a3a",
-      "#7a5a7a",
-      "#c9a4c9",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/dummy.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Mysterons",
-        "duration": "5:02"
-      },
-      {
-        "position": "A2",
-        "title": "Sour Times",
-        "duration": "4:11"
-      },
-      {
-        "position": "B1",
-        "title": "Wandering Star",
+        "title": "Gold Dust Woman",
         "duration": "4:51"
-      },
-      {
-        "position": "B4",
-        "title": "Glory Box",
-        "duration": "5:06"
       }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/92/39/8f/92398f7d-f6a4-2d22-c356-54f780eb1ee0/mzaf_12489366547507857942.plus.aac.p.m4a"
+    ]
   },
   {
-    "id": "blue-lines",
-    "title": "Blue Lines",
-    "artist": "Massive Attack",
-    "year": 1991,
-    "genre": "Trip-Hop",
-    "label": "Wild Bunch",
-    "country": "UK",
-    "palette": [
-      "#e8c44a",
-      "#c9a02a",
-      "#3a1a0a",
-      "#0a0a0a",
-      "#8a6a1a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/blue-lines.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Safe from Harm",
-        "duration": "5:18"
-      },
-      {
-        "position": "A2",
-        "title": "One Love",
-        "duration": "4:48"
-      },
-      {
-        "position": "B3",
-        "title": "Unfinished Sympathy",
-        "duration": "5:08"
-      },
-      {
-        "position": "B5",
-        "title": "Hymn of the Big Wheel",
-        "duration": "6:36"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9d/88/82/9d88823d-f00b-90eb-6ea9-d8778a0206f5/mzaf_2302062545294028574.plus.aac.p.m4a"
-  },
-  {
-    "id": "homogenic",
-    "title": "Homogenic",
-    "artist": "Björk",
-    "year": 1997,
+    "id": "rosalia-motomami-23206178",
+    "title": "Motomami",
+    "artist": "Rosalía",
+    "year": 2022,
     "genre": "Electronic",
-    "label": "One Little Indian",
-    "country": "Iceland",
-    "palette": [
-      "#c93a3a",
-      "#e85a5a",
-      "#1a0a1a",
-      "#3a1a3a",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/homogenic.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Hunter",
-        "duration": "4:14"
-      },
-      {
-        "position": "A3",
-        "title": "Jóga",
-        "duration": "5:05"
-      },
-      {
-        "position": "B1",
-        "title": "Bachelorette",
-        "duration": "5:15"
-      },
-      {
-        "position": "B4",
-        "title": "All Is Full of Love",
-        "duration": "4:31"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/36/8d/5e/368d5eb2-234f-17d7-22b8-9bdb9b47d2ee/mzaf_18051840357248078037.plus.aac.p.m4a"
-  },
-  {
-    "id": "selected-ambient-works",
-    "title": "Selected Ambient Works 85-92",
-    "artist": "Aphex Twin",
-    "year": 1992,
-    "genre": "Ambient",
-    "label": "Apollo",
-    "country": "UK",
-    "palette": [
-      "#0a1a3a",
-      "#1a3a7a",
-      "#3a7fcb",
-      "#a8d4f5",
-      "#0a0a1a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/selected-ambient-works.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Xtal",
-        "duration": "4:54"
-      },
-      {
-        "position": "A2",
-        "title": "Tha",
-        "duration": "9:01"
-      },
-      {
-        "position": "B1",
-        "title": "Pulsewidth",
-        "duration": "3:47"
-      },
-      {
-        "position": "C2",
-        "title": "Ageispolis",
-        "duration": "5:21"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/88/07/1d/88071df2-b7b3-dca3-0cb1-e4cc6b036674/mzaf_1785616371015459389.plus.aac.p.m4a"
-  },
-  {
-    "id": "am",
-    "title": "AM",
-    "artist": "Arctic Monkeys",
-    "year": 2013,
-    "genre": "Rock",
-    "label": "Domino",
-    "country": "UK",
-    "palette": [
-      "#1a1a1a",
-      "#0a0a0a",
-      "#f5f3ee",
-      "#3a3a3a",
-      "#5a5a5a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/am.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Do I Wanna Know?",
-        "duration": "4:32"
-      },
-      {
-        "position": "A2",
-        "title": "R U Mine?",
-        "duration": "3:21"
-      },
-      {
-        "position": "B1",
-        "title": "Why'd You Only Call Me When You're High?",
-        "duration": "2:41"
-      },
-      {
-        "position": "B3",
-        "title": "Arabella",
-        "duration": "3:27"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/df/c3/9c/dfc39caa-a559-b5ac-5b50-472a1c300ca6/mzaf_14741548917211029550.plus.aac.p.m4a"
-  },
-  {
-    "id": "blonde",
-    "title": "Blonde",
-    "artist": "Frank Ocean",
-    "year": 2016,
-    "genre": "R&B",
-    "label": "Boys Don't Cry",
-    "country": "USA",
-    "palette": [
-      "#7a9ac9",
-      "#a8c4e0",
-      "#f5f3ee",
-      "#3a5a8a",
-      "#0a0a0a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/blonde.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Nikes",
-        "duration": "5:14"
-      },
-      {
-        "position": "A3",
-        "title": "Pink + White",
-        "duration": "3:04"
-      },
-      {
-        "position": "B2",
-        "title": "Self Control",
-        "duration": "4:09"
-      },
-      {
-        "position": "D1",
-        "title": "White Ferrari",
-        "duration": "4:08"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/96/11/21/961121d3-a5ed-b097-a261-1b475769f0d2/mzaf_264350905652784834.plus.aac.p.m4a"
-  },
-  {
-    "id": "bloom",
-    "title": "Bloom",
-    "artist": "Beach House",
-    "year": 2012,
-    "genre": "Dream Pop",
-    "label": "Sub Pop",
-    "country": "USA",
-    "palette": [
-      "#1a3a5e",
-      "#3a6fa3",
-      "#7a9ac9",
-      "#0a0a1a",
-      "#a8c4e0"
-    ],
-    "discogsId": null,
-    "cover": "/covers/bloom.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Myth",
-        "duration": "4:18"
-      },
-      {
-        "position": "A2",
-        "title": "Wild",
-        "duration": "4:55"
-      },
-      {
-        "position": "B3",
-        "title": "Lazuli",
-        "duration": "5:08"
-      },
-      {
-        "position": "D1",
-        "title": "Irene",
-        "duration": "6:54"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a4/ea/fc/a4eafcec-7d5e-7a98-1138-5381e172b2fd/mzaf_11395444821657782100.plus.aac.p.m4a"
-  },
-  {
-    "id": "xx",
-    "title": "xx",
-    "artist": "The xx",
-    "year": 2009,
-    "genre": "Indie",
-    "label": "Young Turks",
-    "country": "UK",
-    "palette": [
-      "#0a0a0a",
-      "#1a1a1a",
-      "#f5f3ee",
-      "#3a3a3a",
-      "#5a5a5a"
-    ],
-    "discogsId": null,
-    "cover": "/covers/xx.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Intro",
-        "duration": "2:08"
-      },
-      {
-        "position": "A2",
-        "title": "VCR",
-        "duration": "2:56"
-      },
-      {
-        "position": "A4",
-        "title": "Crystalised",
-        "duration": "3:21"
-      },
-      {
-        "position": "B4",
-        "title": "Islands",
-        "duration": "2:39"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4a/1d/e9/4a1de930-f0f2-484c-eea9-7d46bcd89de8/mzaf_11582686532983847296.plus.aac.p.m4a"
-  },
-  {
-    "id": "sound-of-silver",
-    "title": "Sound of Silver",
-    "artist": "LCD Soundsystem",
-    "year": 2007,
-    "genre": "Electronic",
-    "label": "DFA",
-    "country": "USA",
-    "palette": [
-      "#c9c9c9",
-      "#a8a8a8",
-      "#7a7a7a",
-      "#1a1a1a",
-      "#f5f3ee"
-    ],
-    "discogsId": null,
-    "cover": "/covers/sound-of-silver.jpg",
-    "tracklist": [
-      {
-        "position": "A1",
-        "title": "Get Innocuous!",
-        "duration": "7:10"
-      },
-      {
-        "position": "A2",
-        "title": "Time to Get Away",
-        "duration": "4:11"
-      },
-      {
-        "position": "B3",
-        "title": "All My Friends",
-        "duration": "7:37"
-      },
-      {
-        "position": "D1",
-        "title": "New York, I Love You but You're Bringing Me Down",
-        "duration": "5:36"
-      }
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/45/4a/73/454a7353-5870-54a1-9ba5-30b51db07b92/mzaf_972972305577597078.plus.aac.p.m4a"
-  },
-  {
-    "id": "electric-light-orchestra-the-very-best-of-electric-light-orchestra-all-over-the-world-22200253",
-    "title": "The Very Best Of Electric Light Orchestra - All Over The World",
-    "artist": "Electric Light Orchestra",
-    "year": 2016,
-    "genre": "Rock",
-    "label": "Epic",
+    "label": "Columbia",
     "country": "US",
     "palette": [
       "#888",
@@ -1264,9 +666,1387 @@
       "#222",
       "#000"
     ],
-    "discogsId": 22200253,
-    "cover": "/covers/electric-light-orchestra-the-very-best-of-electric-light-orchestra-all-over-the-world-22200253.jpg",
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/57/4a/66574ac6-6e8f-3250-1b95-8dc97e3c2023/mzaf_11018520996084989072.plus.aac.p.m4a",
+    "discogsId": 23206178,
+    "cover": "/covers/rosalia-motomami-23206178.jpg",
+    "previewUrl": null,
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Saoko",
+        "duration": "2:18"
+      },
+      {
+        "position": "A2",
+        "title": "Candy",
+        "duration": "3:13"
+      },
+      {
+        "position": "A3",
+        "title": "La Fama ",
+        "duration": "3:08"
+      },
+      {
+        "position": "A4",
+        "title": "Bulerías",
+        "duration": "2:36"
+      },
+      {
+        "position": "A5",
+        "title": "Chicken Teriyaki",
+        "duration": "2:02"
+      },
+      {
+        "position": "A6",
+        "title": "Hentai",
+        "duration": "2:43"
+      },
+      {
+        "position": "A7",
+        "title": "Bizcochito",
+        "duration": "1:49"
+      },
+      {
+        "position": "A8",
+        "title": "G3 N15",
+        "duration": "4:12"
+      },
+      {
+        "position": "B1",
+        "title": "Motomami",
+        "duration": "1:01"
+      },
+      {
+        "position": "B2",
+        "title": "Diablo",
+        "duration": "2:46"
+      },
+      {
+        "position": "B3",
+        "title": "Delirio de Grandeza",
+        "duration": "2:35"
+      },
+      {
+        "position": "B4",
+        "title": "CUUUUuuuuuute",
+        "duration": "2:31"
+      },
+      {
+        "position": "B5",
+        "title": "Como un G",
+        "duration": "4:22"
+      },
+      {
+        "position": "B6",
+        "title": "Abcdefg",
+        "duration": "1:06"
+      },
+      {
+        "position": "B7",
+        "title": "La Combi Versace",
+        "duration": "2:40"
+      },
+      {
+        "position": "B8",
+        "title": "Sakura",
+        "duration": "3:22"
+      }
+    ]
+  },
+  {
+    "id": "various-pulp-fiction-music-from-the-motion-picture-376354",
+    "title": "Pulp Fiction (Music From The Motion Picture)",
+    "artist": "Various",
+    "year": 1994,
+    "genre": "Rock",
+    "label": "MCA Records",
+    "country": "US",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 376354,
+    "cover": "/covers/various-pulp-fiction-music-from-the-motion-picture-376354.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/84/ce/ad/84ceadc1-f8e6-b0fc-2850-8d8254340650/mzaf_2204285353260886850.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1a",
+        "title": "Pumpkin And Honey Bunney",
+        "duration": "0:11"
+      },
+      {
+        "position": "A1b",
+        "title": "Misirlou",
+        "duration": "2:16"
+      },
+      {
+        "position": "A2",
+        "title": "Royale With Cheese",
+        "duration": "1:43"
+      },
+      {
+        "position": "A3",
+        "title": "Jungle Boogie",
+        "duration": "3:05"
+      },
+      {
+        "position": "A4",
+        "title": "Let's Stay Together",
+        "duration": "3:15"
+      },
+      {
+        "position": "A5",
+        "title": "Bustin' Surfboards",
+        "duration": "2:27"
+      },
+      {
+        "position": "A6",
+        "title": "Lonesome Town",
+        "duration": "2:13"
+      },
+      {
+        "position": "A7",
+        "title": "Son Of A Preacher Man",
+        "duration": "2:26"
+      },
+      {
+        "position": "A8a",
+        "title": "Zed's Dead, Baby",
+        "duration": "0:12"
+      },
+      {
+        "position": "A8b",
+        "title": "Bullwinkle Part II",
+        "duration": "2:18"
+      },
+      {
+        "position": "B1a",
+        "title": "Jack Rabbit Slims Twist Contest",
+        "duration": "0:32"
+      },
+      {
+        "position": "B1b",
+        "title": "You Never Can Tell",
+        "duration": "2:40"
+      },
+      {
+        "position": "B2",
+        "title": "Girl, You'll Be A Woman Soon",
+        "duration": "3:10"
+      },
+      {
+        "position": "B3",
+        "title": "If Love Is A Red Dress (Hang Me In Rags)",
+        "duration": "4:55"
+      },
+      {
+        "position": "B4a",
+        "title": "Bring Out The Gimp",
+        "duration": "0:08"
+      },
+      {
+        "position": "B4b",
+        "title": "Comanche",
+        "duration": "2:04"
+      },
+      {
+        "position": "B5",
+        "title": "Flowers On The Wall",
+        "duration": "2:23"
+      },
+      {
+        "position": "B6",
+        "title": "Personality Goes A Long Way",
+        "duration": "1:01"
+      },
+      {
+        "position": "B7",
+        "title": "Surf Rider",
+        "duration": "3:19"
+      },
+      {
+        "position": "B8",
+        "title": "Ezekiel 25:17",
+        "duration": "0:52"
+      }
+    ]
+  },
+  {
+    "id": "vanilla-ice-to-the-extreme-2720530",
+    "title": "To The Extreme",
+    "artist": "Vanilla Ice",
+    "year": 1990,
+    "genre": "Hip Hop",
+    "label": "SBK Records",
+    "country": "Italy",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 2720530,
+    "cover": "/covers/vanilla-ice-to-the-extreme-2720530.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2d/e2/7c/2de27ce7-0673-f8e0-30e7-c79084ea5a11/mzaf_9504996243608700414.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Ice Ice Baby",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Yo Vanilla",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Stop That Train",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Hooked",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Ice Is Workin' It",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Life Is A Fantasy",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "Play That Funky Music",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Dancin'",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Go Ill",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "It's A Party",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Juice To Get Loose Boy",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Ice Cold",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Rosta Man",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "I Love You",
+        "duration": ""
+      },
+      {
+        "position": "B8",
+        "title": "Havin' A Roni",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "maurice-jarre-original-soundtrack-recording-lawrence-of-arabia-18754147",
+    "title": "Original Soundtrack Recording Lawrence Of Arabia",
+    "artist": "Maurice Jarre",
+    "year": 1971,
+    "genre": "Stage & Screen",
+    "label": "Colpix Records",
+    "country": "Netherlands",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 18754147,
+    "cover": "/covers/maurice-jarre-original-soundtrack-recording-lawrence-of-arabia-18754147.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/3f/5a/68/3f5a6867-925b-971b-3ee3-2b8c41dd8983/mzaf_970328012511609054.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Overture",
+        "duration": "4:14"
+      },
+      {
+        "position": "A2",
+        "title": "Main Title",
+        "duration": "1:54"
+      },
+      {
+        "position": "A3",
+        "title": "Miracle",
+        "duration": "3:08"
+      },
+      {
+        "position": "A4",
+        "title": "Nefud Mirage",
+        "duration": "2:20"
+      },
+      {
+        "position": "A5",
+        "title": "Rescue Of Gasim And Bringing Gasim Into Camp",
+        "duration": "5:46"
+      },
+      {
+        "position": "B1",
+        "title": "Arrival At Auda's Camp",
+        "duration": "2:01"
+      },
+      {
+        "position": "B2",
+        "title": "The Voice Of The Guns",
+        "duration": "1:58"
+      },
+      {
+        "position": "B3",
+        "title": "Continuation Of The Miracle",
+        "duration": "2:13"
+      },
+      {
+        "position": "B4",
+        "title": "Suns Anvil",
+        "duration": "3:04"
+      },
+      {
+        "position": "B5",
+        "title": "Lawrence & Body Guard",
+        "duration": "2:04"
+      },
+      {
+        "position": "B6",
+        "title": "That Is The Desert",
+        "duration": "2:51"
+      },
+      {
+        "position": "B7",
+        "title": "End Title",
+        "duration": "1:05"
+      }
+    ]
+  },
+  {
+    "id": "bad-bunny-debi-tirar-mas-fotos-35474179",
+    "title": "Debí Tirar Más Fotos",
+    "artist": "Bad Bunny",
+    "year": 2025,
+    "genre": "Hip Hop",
+    "label": "Rimas Entertainment (2)",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 35474179,
+    "cover": "/covers/bad-bunny-debi-tirar-mas-fotos-35474179.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/10/f1/6610f15b-b355-f90f-6539-302341f9c144/mzaf_13499589849131608776.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Nuevayol",
+        "duration": "3:04"
+      },
+      {
+        "position": "A2",
+        "title": "Voy A Llevarte Pa PR",
+        "duration": "2:36"
+      },
+      {
+        "position": "A3",
+        "title": "Baile Inolvidable",
+        "duration": "6:08"
+      },
+      {
+        "position": "A4",
+        "title": "Perfumito Nuevo",
+        "duration": "3:21"
+      },
+      {
+        "position": "B1",
+        "title": "Weltita",
+        "duration": "3:08"
+      },
+      {
+        "position": "B2",
+        "title": "Veldá",
+        "duration": "3:55"
+      },
+      {
+        "position": "B3",
+        "title": "El Clúb",
+        "duration": "3:43"
+      },
+      {
+        "position": "B4",
+        "title": "Ketu Tecré",
+        "duration": "4:11"
+      },
+      {
+        "position": "B5",
+        "title": "Bokete",
+        "duration": "3:36"
+      },
+      {
+        "position": "C1",
+        "title": "Kloufrens",
+        "duration": "3:19"
+      },
+      {
+        "position": "C2",
+        "title": "Turista",
+        "duration": "3:10"
+      },
+      {
+        "position": "C3",
+        "title": "Café Con Ron",
+        "duration": "3:49"
+      },
+      {
+        "position": "C4",
+        "title": "Pitorro De Coco",
+        "duration": "3:27"
+      },
+      {
+        "position": "D1",
+        "title": "Lo Que Le Pasó A Hawaii",
+        "duration": "3:49"
+      },
+      {
+        "position": "D2",
+        "title": "Eoo",
+        "duration": "3:25"
+      },
+      {
+        "position": "D3",
+        "title": "DTMF",
+        "duration": "3:57"
+      },
+      {
+        "position": "D4",
+        "title": "La Mudanza",
+        "duration": "3:33"
+      }
+    ]
+  },
+  {
+    "id": "led-zeppelin-led-zeppelin-iv-1015465",
+    "title": "Led Zeppelin IV",
+    "artist": "Led Zeppelin",
+    "year": 1978,
+    "genre": "Rock",
+    "label": "Atlantic",
+    "country": "Italy",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 1015465,
+    "cover": "/covers/led-zeppelin-led-zeppelin-iv-1015465.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/05/d9/4d/05d94da2-11d8-dbc0-0080-877ff3a6727d/mzaf_3202083383964343705.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Black Dog",
+        "duration": "4:55"
+      },
+      {
+        "position": "A2",
+        "title": "Rock And Roll",
+        "duration": "3:40"
+      },
+      {
+        "position": "A3",
+        "title": "The Battle Of Evermore",
+        "duration": "5:38"
+      },
+      {
+        "position": "A4",
+        "title": "Stairway To Heaven",
+        "duration": "7:55"
+      },
+      {
+        "position": "B1",
+        "title": "Misty Mountain Hop",
+        "duration": "4:39"
+      },
+      {
+        "position": "B2",
+        "title": "Four Sticks",
+        "duration": "4:49"
+      },
+      {
+        "position": "B3",
+        "title": "Going To California",
+        "duration": "3:36"
+      },
+      {
+        "position": "B4",
+        "title": "When The Levee Breaks",
+        "duration": "7:08"
+      }
+    ]
+  },
+  {
+    "id": "dire-straits-brothers-in-arms-2462721",
+    "title": "Brothers In Arms",
+    "artist": "Dire Straits",
+    "year": 1985,
+    "genre": "Rock",
+    "label": "Vertigo",
+    "country": "Spain",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 2462721,
+    "cover": "/covers/dire-straits-brothers-in-arms-2462721.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f3/ea/45/f3ea4588-f18f-a484-1ad7-430fccfdc0e4/mzaf_874618759494846283.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "So Far Away",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Money For Nothing",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Walk Of Life",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Your Latest Trick",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Why Worry",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Ride Across The River",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "The Man's Too Strong",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "One World",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Brothers In Arms",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "gorillaz-demon-days-36145336",
+    "title": "Demon Days",
+    "artist": "Gorillaz",
+    "year": 2023,
+    "genre": "Electronic",
+    "label": "Parlophone",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 36145336,
+    "cover": "/covers/gorillaz-demon-days-36145336.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/b5/52/4c/b5524c2c-e1f7-9457-4bbe-1b082afc4873/mzaf_3748637820370636327.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Intro",
+        "duration": "1:03"
+      },
+      {
+        "position": "A2",
+        "title": "Last Living Souls",
+        "duration": "3:10"
+      },
+      {
+        "position": "A3",
+        "title": "Kids With Guns",
+        "duration": "3:45"
+      },
+      {
+        "position": "A4",
+        "title": "O Green World",
+        "duration": "4:32"
+      },
+      {
+        "position": "B1",
+        "title": "Dirty Harry",
+        "duration": "3:43"
+      },
+      {
+        "position": "B2",
+        "title": "Feel Good Inc.",
+        "duration": "3:41"
+      },
+      {
+        "position": "B3",
+        "title": "El Mañana",
+        "duration": "3:50"
+      },
+      {
+        "position": "C1",
+        "title": "Every Planet We Reach Is Dead",
+        "duration": "4:53"
+      },
+      {
+        "position": "C2",
+        "title": "November Has Come",
+        "duration": "2:41"
+      },
+      {
+        "position": "C3",
+        "title": "All Alone",
+        "duration": "3:30"
+      },
+      {
+        "position": "C4",
+        "title": "White Light",
+        "duration": "2:08"
+      },
+      {
+        "position": "D1",
+        "title": "Dare",
+        "duration": "4:04"
+      },
+      {
+        "position": "D2",
+        "title": "Fire Coming Out Of The Monkey's Head",
+        "duration": "3:16"
+      },
+      {
+        "position": "D3",
+        "title": "Don't Get Lost In Heaven",
+        "duration": "2:00"
+      },
+      {
+        "position": "D4",
+        "title": "Demon Days",
+        "duration": "4:28"
+      }
+    ]
+  },
+  {
+    "id": "elvis-presley-hits-in-red-10634709",
+    "title": "Hits In Red",
+    "artist": "Elvis Presley",
+    "year": 2017,
+    "genre": "Rock",
+    "label": "Gold Vinyl",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 10634709,
+    "cover": "/covers/elvis-presley-hits-in-red-10634709.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/29/48/54/294854a7-c268-ef20-1d01-fdc80b23f0eb/mzaf_12849498679262522244.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Jailhouse Rock",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Hard Headed Woman",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Hound Dog",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Don't Be Cruel",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "(Now And Then There's) A Fool Such As I",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Stuck On You",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "Return To Sender",
+        "duration": ""
+      },
+      {
+        "position": "A8",
+        "title": "(Marie's The Name) His Latest Flame",
+        "duration": ""
+      },
+      {
+        "position": "A9",
+        "title": "Good Luck Charm",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Can't Help Falling In Love",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "It's Now Or Never",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "One Night",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Are You Lonesome To Night",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Don't",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Heartbreak Hotel",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "Love Me Tender",
+        "duration": ""
+      },
+      {
+        "position": "B8",
+        "title": "Surrender",
+        "duration": ""
+      },
+      {
+        "position": "B9",
+        "title": "She's Not You",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "estopa-estopa-9267144",
+    "title": "Estopa",
+    "artist": "Estopa",
+    "year": 2016,
+    "genre": "Rock",
+    "label": "Sony Music",
+    "country": "Spain",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 9267144,
+    "cover": "/covers/estopa-estopa-9267144.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/be/02/68/be0268d2-599a-38db-4cb1-e01a75770eb8/mzaf_12271965430131491184.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Tu Calorro",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "La Raja De Tu Falda",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Me Falta El Aliento",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Tan Sólo",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Poquito A Poco",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Suma Y Sigue",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "El Del Medio De Los Chichos",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Como Camaron",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Exiliado En El Lavabo",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Estopa",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Cacho A Cacho",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Bossanova",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "cypress-hill-beats-from-the-bong-12874546",
+    "title": "Beats From The Bong",
+    "artist": "Cypress Hill",
+    "year": 2018,
+    "genre": "Hip Hop",
+    "label": "Not On Label (Cypress Hill)",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 12874546,
+    "cover": "/covers/cypress-hill-beats-from-the-bong-12874546.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d5/0a/74/d50a74f3-b21c-cde3-87d6-4dc0a2cbbd66/mzaf_15658454071279089574.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "The Phunky Feel One",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "How I Could Just Kill A Man",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Hand On The Pump",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Real Estate",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "Pigs",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "We Ain't Goin' Out Like That",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "I Wanna Get High",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Lick A Shot",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Throw Your Set In The Air (Album Version) ",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Throw Your Set In The Air (Club Version) ",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Killa Hill",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Illusions (LP Version)",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "Insane In The Brain",
+        "duration": ""
+      },
+      {
+        "position": "C2",
+        "title": "When The Ship Goes Down",
+        "duration": ""
+      },
+      {
+        "position": "C3",
+        "title": "Illusions (Muggs Version)",
+        "duration": ""
+      },
+      {
+        "position": "C4",
+        "title": "Boom Biddy Bye Bye (LP Version)",
+        "duration": ""
+      },
+      {
+        "position": "C5",
+        "title": "Boom Biddy Bye Bye (Fugees Mix Version) ",
+        "duration": ""
+      },
+      {
+        "position": "D1",
+        "title": "Tequila Sunrise",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "Dr Greenthumb",
+        "duration": ""
+      },
+      {
+        "position": "D3",
+        "title": "Audio X",
+        "duration": ""
+      },
+      {
+        "position": "D4",
+        "title": "Latin Thugs",
+        "duration": ""
+      },
+      {
+        "position": "D5",
+        "title": "Rap Superstar",
+        "duration": ""
+      },
+      {
+        "position": "D6",
+        "title": "Lowrider",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "hans-zimmer-dune-part-two-original-motion-picture-soundtrack-29970571",
+    "title": "Dune: Part Two (Original Motion Picture Soundtrack)",
+    "artist": "Hans Zimmer",
+    "year": 2024,
+    "genre": "Classical",
+    "label": "Mutant (6)",
+    "country": "Worldwide",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 29970571,
+    "cover": "/covers/hans-zimmer-dune-part-two-original-motion-picture-soundtrack-29970571.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/92/32/3f/92323f38-8dc8-9a97-3f04-f9b969cd8392/mzaf_18270442531321028427.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Beginnings Are Such Delicate Times",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Eclipse",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "The Sietch",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Water Of Life",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "A Time Of Quiet Between The Storms",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Harvester Attack",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Worm Ride",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Ornithopter Attack",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Each Man Is A Little War",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Harkonnen Arena",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "Spice",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "Seduction",
+        "duration": ""
+      },
+      {
+        "position": "C2",
+        "title": "Never Lose Me",
+        "duration": ""
+      },
+      {
+        "position": "C3",
+        "title": "Travel South",
+        "duration": ""
+      },
+      {
+        "position": "C4",
+        "title": "Paul Drinks",
+        "duration": ""
+      },
+      {
+        "position": "C5",
+        "title": "Resurrection",
+        "duration": ""
+      },
+      {
+        "position": "C6",
+        "title": "Arrival",
+        "duration": ""
+      },
+      {
+        "position": "C7",
+        "title": "Southern Messiah",
+        "duration": ""
+      },
+      {
+        "position": "C8",
+        "title": "The Emperor",
+        "duration": ""
+      },
+      {
+        "position": "C9",
+        "title": "Worm Army",
+        "duration": ""
+      },
+      {
+        "position": "D1",
+        "title": "Gurney Battle",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "You Fought Well",
+        "duration": ""
+      },
+      {
+        "position": "D3",
+        "title": "Kiss The Ring",
+        "duration": ""
+      },
+      {
+        "position": "D4",
+        "title": "Only I Will Remain",
+        "duration": ""
+      },
+      {
+        "position": "D5",
+        "title": "Lisan Al Gaib",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "hans-zimmer-live-26069311",
+    "title": "Live",
+    "artist": "Hans Zimmer",
+    "year": 2023,
+    "genre": "Stage & Screen",
+    "label": "Sony Classical",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 26069311,
+    "cover": "/covers/hans-zimmer-live-26069311.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/95/37/ab9537e4-4858-2ffd-93d1-d9ce4b478017/mzaf_11898984311634650661.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "1A1",
+        "title": "Dune: House Atreides",
+        "duration": "3:46"
+      },
+      {
+        "position": "1A2",
+        "title": "Inception: Mombasa",
+        "duration": "4:55"
+      },
+      {
+        "position": "1A3",
+        "title": "Wonder Woman Suite: Part 1",
+        "duration": "3:18"
+      },
+      {
+        "position": "1A4",
+        "title": "Wonder Woman Suite: Part 2",
+        "duration": "2:21"
+      },
+      {
+        "position": "1A5",
+        "title": "Wonder Woman Suite: Part 3",
+        "duration": "4:06"
+      },
+      {
+        "position": "1B1",
+        "title": "Dark Phoenix Suite",
+        "duration": "5:17"
+      },
+      {
+        "position": "1B2",
+        "title": "Dunkirk: Supermarine",
+        "duration": "2:26"
+      },
+      {
+        "position": "1B3",
+        "title": "Interstellar Suite: Part 1",
+        "duration": "5:58"
+      },
+      {
+        "position": "1B4",
+        "title": "Interstellar Suite: Part 2",
+        "duration": "5:34"
+      },
+      {
+        "position": "2A1",
+        "title": "Gladiator Suite: Part 1",
+        "duration": "3:47"
+      },
+      {
+        "position": "2A2",
+        "title": "Gladiator Suite: Part 2",
+        "duration": "3:48"
+      },
+      {
+        "position": "2A3",
+        "title": "Gladiator Suite: Part 3",
+        "duration": "5:30"
+      },
+      {
+        "position": "2A4",
+        "title": "Gladiator Suite: Part 4",
+        "duration": "1:53"
+      },
+      {
+        "position": "2B1",
+        "title": "Pirates Of The Caribbean Suite: Part 1 \"Jack Sparrow\"",
+        "duration": "4:11"
+      },
+      {
+        "position": "2B2",
+        "title": "Pirates Of The Caribbean Suite: Part 2",
+        "duration": "4:59"
+      },
+      {
+        "position": "2B3",
+        "title": "Pirates Of The Caribbean Suite: Part 3",
+        "duration": "4:45"
+      },
+      {
+        "position": "3A1",
+        "title": "Absurdities: Part 1",
+        "duration": "5:00"
+      },
+      {
+        "position": "3A2",
+        "title": "Absurdities: Part 2",
+        "duration": "4:27"
+      },
+      {
+        "position": "3A3",
+        "title": "Man Of Steel Suite: Part 1 \"What Are You Going To Do When You Are Not Saving The World? ",
+        "duration": "4:42"
+      },
+      {
+        "position": "3A4",
+        "title": "Man Of Steel Suite: Part 2",
+        "duration": "3:53"
+      },
+      {
+        "position": "3B1",
+        "title": "Dune: Paul's Dream",
+        "duration": "5:28"
+      },
+      {
+        "position": "3B2",
+        "title": "The Last Samurai Suite: Part 1",
+        "duration": "2:56"
+      },
+      {
+        "position": "3B3",
+        "title": "The Last Samurai Suite: Part 2",
+        "duration": "3:34"
+      },
+      {
+        "position": "3B4",
+        "title": "The Last Samurai Suite: Part 3",
+        "duration": "5:38"
+      },
+      {
+        "position": "4A1",
+        "title": "The Lion King Suite: Part 1 \"He Lives In You\"",
+        "duration": "3:59"
+      },
+      {
+        "position": "4A2",
+        "title": "The Lion King Suite: Part 2",
+        "duration": "5:24"
+      },
+      {
+        "position": "4A3",
+        "title": "The Lion King Suite: Part 3",
+        "duration": "3:02"
+      },
+      {
+        "position": "4B1",
+        "title": "The Dark Knight Suite: Part 1",
+        "duration": "4:07"
+      },
+      {
+        "position": "4B2",
+        "title": "The Dark Knight Suite: Part 2",
+        "duration": "4:06"
+      },
+      {
+        "position": "4B3",
+        "title": "No Time To Die Suite",
+        "duration": "5:50"
+      },
+      {
+        "position": "4B4",
+        "title": "Inception: Time",
+        "duration": "4:37"
+      }
+    ]
+  },
+  {
+    "id": "various-guardians-of-the-galaxy-awesome-mix-vol-2-28363360",
+    "title": "Guardians Of The Galaxy Awesome Mix Vol. 2",
+    "artist": "Various",
+    "year": 2023,
+    "genre": "Rock",
+    "label": "Hollywood Records",
+    "country": "Worldwide",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 28363360,
+    "cover": "/covers/various-guardians-of-the-galaxy-awesome-mix-vol-2-28363360.jpg",
+    "previewUrl": null,
     "tracklist": [
       {
         "position": "A1",
@@ -1275,98 +2055,750 @@
       },
       {
         "position": "A2",
-        "title": "Evil Woman",
+        "title": "Fox On The Run",
         "duration": ""
       },
       {
         "position": "A3",
-        "title": "Don't Bring Me Down",
+        "title": "Lake Shore Drive",
         "duration": ""
       },
       {
         "position": "A4",
-        "title": "Sweet Talkin' Woman",
+        "title": "The Chain",
         "duration": ""
       },
       {
         "position": "A5",
-        "title": "Shine A Little Love",
+        "title": "Bring It on Home to Me",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Southern Nights",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "My Sweet Lord",
         "duration": ""
       },
       {
         "position": "B1",
-        "title": "Turn To Stone",
+        "title": "Brandy (You're A Fine Girl)",
         "duration": ""
       },
       {
         "position": "B2",
-        "title": "The Diary Of Horace Wimp",
+        "title": "Come A Little Bit Closer",
         "duration": ""
       },
       {
         "position": "B3",
-        "title": "Confusion",
+        "title": "Wham Bam Shang-a-Lang",
         "duration": ""
       },
       {
         "position": "B4",
-        "title": "Hold On Tight",
+        "title": "Surrender",
         "duration": ""
       },
       {
         "position": "B5",
-        "title": "Livin' Thing",
+        "title": "Father And Son",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Flash Light ",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "Guardians Inferno",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "various-guardians-of-the-galaxy-awesome-mix-vol-1-6149924",
+    "title": "Guardians Of The Galaxy Awesome Mix Vol. 1",
+    "artist": "Various",
+    "year": 2014,
+    "genre": "Rock",
+    "label": "Hollywood Records",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 6149924,
+    "cover": "/covers/various-guardians-of-the-galaxy-awesome-mix-vol-1-6149924.jpg",
+    "previewUrl": null,
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Hooked On A Feeling",
+        "duration": "2:54"
+      },
+      {
+        "position": "A2",
+        "title": "Go All The Way",
+        "duration": "3:22"
+      },
+      {
+        "position": "A3",
+        "title": "Spirit In The Sky",
+        "duration": "4:03"
+      },
+      {
+        "position": "A4",
+        "title": "Moonage Daydream",
+        "duration": "4:42"
+      },
+      {
+        "position": "A5",
+        "title": "Fooled Around And Fell In Love",
+        "duration": "4:37"
+      },
+      {
+        "position": "A6",
+        "title": "I Want You Back",
+        "duration": "3:00"
+      },
+      {
+        "position": "B1",
+        "title": "I'm Not In Love",
+        "duration": "6:04"
+      },
+      {
+        "position": "B2",
+        "title": "Come And Get Your Love",
+        "duration": "3:28"
+      },
+      {
+        "position": "B3",
+        "title": "Cherry Bomb",
+        "duration": "2:19"
+      },
+      {
+        "position": "B4",
+        "title": "Escape (The Piña Colada Song)",
+        "duration": "4:38"
+      },
+      {
+        "position": "B5",
+        "title": "O-o-h Child",
+        "duration": "3:15"
+      },
+      {
+        "position": "B6",
+        "title": "Ain't No Mountain High Enough",
+        "duration": "2:29"
+      }
+    ]
+  },
+  {
+    "id": "etta-james-at-last-5466884",
+    "title": "At Last!",
+    "artist": "Etta James",
+    "year": 2013,
+    "genre": "Funk / Soul",
+    "label": "WaxTime",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 5466884,
+    "cover": "/covers/etta-james-at-last-5466884.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e7/8a/48/e78a48f4-b001-6ffe-01df-81d094293ac1/mzaf_9649020738934965925.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Anything To Say You're Mine",
+        "duration": "2:39"
+      },
+      {
+        "position": "A2",
+        "title": "My Dearest Darling",
+        "duration": "3:02"
+      },
+      {
+        "position": "A3",
+        "title": "Trust In Me",
+        "duration": "3:00"
+      },
+      {
+        "position": "A4",
+        "title": "Sunday Kind Of Love",
+        "duration": "3:19"
+      },
+      {
+        "position": "A5",
+        "title": "Tough Mary",
+        "duration": "2:27"
+      },
+      {
+        "position": "A6",
+        "title": "Don't Cry Baby",
+        "duration": "2:27"
+      },
+      {
+        "position": "A7",
+        "title": "You Know What I Mean",
+        "duration": "3:03"
+      },
+      {
+        "position": "B1",
+        "title": "I Just Want To Make Love To You",
+        "duration": "3:08"
+      },
+      {
+        "position": "B2",
+        "title": "At Last",
+        "duration": "3:02"
+      },
+      {
+        "position": "B3",
+        "title": "All I Could Do Was Cry",
+        "duration": "2:58"
+      },
+      {
+        "position": "B4",
+        "title": "Stormy Weather",
+        "duration": "3:10"
+      },
+      {
+        "position": "B5",
+        "title": "Girl Of My Dreams (Rendered As Boy Of My Dreams)",
+        "duration": "2:24"
+      },
+      {
+        "position": "B6",
+        "title": "I'll Dry My Tears",
+        "duration": "2:39"
+      },
+      {
+        "position": "B7",
+        "title": "Seven Day Fool",
+        "duration": "3:02"
+      }
+    ]
+  },
+  {
+    "id": "john-williams-star-wars-the-last-jedi-original-motion-picture-soundtrack-11713857",
+    "title": "Star Wars: The Last Jedi (Original Motion Picture Soundtrack)",
+    "artist": "John Williams",
+    "year": 2018,
+    "genre": "Stage & Screen",
+    "label": "Walt Disney Records",
+    "country": "UK, Europe & US",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 11713857,
+    "cover": "/covers/john-williams-star-wars-the-last-jedi-original-motion-picture-soundtrack-11713857.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a4/81/80/a48180ff-f17f-368c-6362-156a9488b159/mzaf_15355567592496057803.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Main Title And Escape",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Ahch-To Island",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Revisiting Snoke",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "The Supremacy",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Fun With Finn And Rose",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Old Friends",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "The Rebellion Is Reborn",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Lesson One",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Canto Bight",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Who Are You?",
         "duration": ""
       },
       {
         "position": "C1",
-        "title": "Telephone Line",
+        "title": "The Fathiers",
         "duration": ""
       },
       {
         "position": "C2",
-        "title": "All Over The World",
+        "title": "The Cave",
         "duration": ""
       },
       {
         "position": "C3",
-        "title": "Wild West Hero",
+        "title": "The Sacred Jedi Texts",
         "duration": ""
       },
       {
         "position": "C4",
-        "title": "Showdown",
+        "title": "A New Alliance",
         "duration": ""
       },
       {
         "position": "C5",
-        "title": "Ma-Ma-Ma-Belle",
+        "title": "\"Chrome Dome\"",
+        "duration": ""
+      },
+      {
+        "position": "C6",
+        "title": "The Battle Of Crait",
         "duration": ""
       },
       {
         "position": "D1",
-        "title": "Xanadu",
+        "title": "The Spark",
         "duration": ""
       },
       {
         "position": "D2",
-        "title": "Rockaria!",
+        "title": "The Last Jedi",
         "duration": ""
       },
       {
         "position": "D3",
-        "title": "Strange Magic",
+        "title": "Peace and Purpose",
         "duration": ""
       },
       {
         "position": "D4",
-        "title": "Alright",
+        "title": "Finale",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "elton-john-diamonds-13731060",
+    "title": "Diamonds",
+    "artist": "Elton John",
+    "year": 2019,
+    "genre": "Pop",
+    "label": "Virgin EMI Records",
+    "country": "",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 13731060,
+    "cover": "/covers/elton-john-diamonds-13731060.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/83/5c/f9/835cf947-3f9a-a440-cba9-533449ad8e3b/mzaf_17406689772196672099.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Your Song",
+        "duration": "4:01"
+      },
+      {
+        "position": "A2",
+        "title": "Tiny Dancer",
+        "duration": "6:15"
+      },
+      {
+        "position": "A3",
+        "title": "Rocket Man (I Think It's Going To Be A Long, Long Time)",
+        "duration": "4:40"
+      },
+      {
+        "position": "A4",
+        "title": "Crocodile Rock",
+        "duration": "3:54"
+      },
+      {
+        "position": "A5",
+        "title": "Daniel",
+        "duration": "3:53"
+      },
+      {
+        "position": "B1",
+        "title": "Saturday Night's Alright (For Fighting)",
+        "duration": "4:54"
+      },
+      {
+        "position": "B2",
+        "title": "Goodbye Yellow Brick Road",
+        "duration": "3:13"
+      },
+      {
+        "position": "B3",
+        "title": "Candle In The Wind",
+        "duration": "3:47"
+      },
+      {
+        "position": "B4",
+        "title": "Bennie And The Jets",
+        "duration": "5:21"
+      },
+      {
+        "position": "B5",
+        "title": "Someone Saved My Life Tonight",
+        "duration": "6:45"
+      },
+      {
+        "position": "C1",
+        "title": "Don't Go Breaking My Heart (Elton John + Kiki Dee)",
+        "duration": "4:25"
+      },
+      {
+        "position": "C2",
+        "title": "Sorry Seems To Be The Hardest Word",
+        "duration": "3:48"
+      },
+      {
+        "position": "C3",
+        "title": "Song For Guy",
+        "duration": "5:01"
+      },
+      {
+        "position": "C4",
+        "title": "Blue Eyes",
+        "duration": "3:27"
+      },
+      {
+        "position": "C5",
+        "title": "I'm Still Standing",
+        "duration": "3:02"
+      },
+      {
+        "position": "C6",
+        "title": "I Guess That's Why They Call It The Blues",
+        "duration": "4:41"
+      },
+      {
+        "position": "D1",
+        "title": "Nikita",
+        "duration": "5:43"
+      },
+      {
+        "position": "D2",
+        "title": "Sacrifice",
+        "duration": "5:05"
+      },
+      {
+        "position": "D3",
+        "title": "Don't Let The Sun Go Down On Me (George Michael And Elton John)",
+        "duration": "5:47"
+      },
+      {
+        "position": "D4",
+        "title": "Can You Feel The Love Tonight",
+        "duration": "4:00"
+      },
+      {
+        "position": "D5",
+        "title": "Are You Ready For Love",
+        "duration": "3:31"
+      }
+    ]
+  },
+  {
+    "id": "various-the-many-faces-of-elton-john-14200924",
+    "title": "The Many Faces Of Elton John",
+    "artist": "Various",
+    "year": 2019,
+    "genre": "Pop",
+    "label": "Music Brokers",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 14200924,
+    "cover": "/covers/various-the-many-faces-of-elton-john-14200924.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/28/5f/e1/285fe14a-447d-09b1-e602-2c2ba4b1e1a3/mzaf_6545340860945224972.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "",
+        "title": "The Many Faces Of Elton John",
+        "duration": ""
+      },
+      {
+        "position": "A1",
+        "title": "Perfect Day",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Mr. Boyd",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Let The Sunshine In",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Take Me To The Pilot",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "He Ain't Heavy, He's My Brother",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "A Song For You",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Strange Thing",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Gonna Capture Your Heart",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Border Song",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "This Masquerade",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Short Change",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Perfect Lady Housewife",
+        "duration": ""
+      },
+      {
+        "position": "",
+        "title": "The Songs",
+        "duration": ""
+      },
+      {
+        "position": "C1",
+        "title": "Rocket Man",
+        "duration": ""
+      },
+      {
+        "position": "C2",
+        "title": "Tiny Dancer (Ronan Remix)",
+        "duration": ""
+      },
+      {
+        "position": "C3",
+        "title": "Are You Ready For Love",
+        "duration": ""
+      },
+      {
+        "position": "C4",
+        "title": "Nikita",
+        "duration": ""
+      },
+      {
+        "position": "C5",
+        "title": "Candle In The Wind",
+        "duration": ""
+      },
+      {
+        "position": "D1",
+        "title": "Sacrifice",
+        "duration": ""
+      },
+      {
+        "position": "D2",
+        "title": "Don't Let The Sun Go Down On Me",
+        "duration": ""
+      },
+      {
+        "position": "D3",
+        "title": "Bennie & The Jets",
+        "duration": ""
+      },
+      {
+        "position": "D4",
+        "title": "Your Song",
         "duration": ""
       },
       {
         "position": "D5",
-        "title": "Rock 'N' Roll Is King",
+        "title": "Goodbye Yellow Brick Road",
         "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "elvis-presley-el-rock-and-roll-de-elvis-25793236",
+    "title": "El Rock And Roll De Elvis",
+    "artist": "Elvis Presley",
+    "year": 1979,
+    "genre": "Rock",
+    "label": "RCA Victor",
+    "country": "Spain",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 25793236,
+    "cover": "/covers/elvis-presley-el-rock-and-roll-de-elvis-25793236.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/77/71/63/77716352-8a8a-1ddb-a032-3bbadcd51b6a/mzaf_5875912342721175069.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Perro De Caza = Hound Dog",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Amándote = Loving You",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "Estremécete = All Shook Up",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Hotel Nostálgico = Heartbreak Hotel",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "El Rock De La Cárcel = Jailhouse Rock",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Amame = Love Me",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "Demasiado = Too Much",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "No Seas Cruel = Don't Be Cruel",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Cuando Empiezas A Sufrir = That's When Your Heartaches Begin",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "(Let Me Be Your) Teddy Bear",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Quiéreme Tiernamente = Love Me Tender",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "Trátame Bien = Treat Me Nice",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Quiéreme Como Tú Quieras = Anyway You Want Me (That's How I Will Be)",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "Te Quiero, Te Necesito, Te Amo = I Want You, I Need You, I Love You",
+        "duration": ""
+      }
+    ]
+  },
+  {
+    "id": "guru-josh-infinity-the-remix-177348",
+    "title": "Infinity (The Remix)",
+    "artist": "Guru Josh",
+    "year": 1990,
+    "genre": "Electronic",
+    "label": "Deconstruction",
+    "country": "UK",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 177348,
+    "cover": "/covers/guru-josh-infinity-the-remix-177348.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2c/fc/eb/2cfceb55-9f9b-6d07-f147-34f0e1f79d77/mzaf_3627014269912561326.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A",
+        "title": "Infinity (Sane Remix)",
+        "duration": "6:14"
+      },
+      {
+        "position": "B",
+        "title": "Infinity (Mad Mix)",
+        "duration": "11:07"
       }
     ]
   }

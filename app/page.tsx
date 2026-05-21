@@ -6,16 +6,19 @@ import VinylShelf, { type VinylShelfHandle } from "@/components/VinylShelf3D";
 import MiniVinyl from "@/components/MiniVinyl";
 import SearchOverlay from "@/components/SearchOverlay";
 import CollectionsOverlay from "@/components/CollectionsOverlay";
+import VinylEditOverlay from "@/components/VinylEditOverlay";
 import data from "@/data/vinilos.json";
 import type { Vinyl } from "@/lib/types";
 import { coverFor } from "@/lib/cover";
 import {
   type Collection,
+  type SortMode,
   loadCollections,
   saveCollections,
   loadActiveId,
   saveActiveId,
   newCollection,
+  sortedVinylIds,
   DEFAULT_ID,
 } from "@/lib/collections";
 
@@ -24,6 +27,7 @@ export default function Home() {
   const [collections, setCollections] = useState<Collection[]>([]);
   const [activeCollectionId, setActiveCollectionId] = useState<string>(DEFAULT_ID);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   // hydrate from localStorage
   useEffect(() => {
@@ -32,19 +36,47 @@ export default function Home() {
     setCollections(cols);
     const aid = loadActiveId();
     setActiveCollectionId(cols.some((c) => c.id === aid) ? aid : cols[0].id);
+    setHydrated(true);
   }, []);
 
-  // current collection's vinyls (filtered)
+  // current collection's vinyls (filtered + sorted)
+  // Mi Colección (DEFAULT_ID) is virtual: always = allVinilos
   const activeCollection = collections.find((c) => c.id === activeCollectionId);
-  const vinilos = activeCollection
-    ? activeCollection.vinylIds
+  const effectiveCollection = activeCollection
+    ? activeCollection.id === DEFAULT_ID
+      ? { ...activeCollection, vinylIds: allVinilos.map((v) => v.id) }
+      : activeCollection
+    : null;
+  const vinilos = effectiveCollection
+    ? sortedVinylIds(effectiveCollection, allVinilos)
         .map((id) => allVinilos.find((v) => v.id === id))
         .filter((v): v is Vinyl => !!v)
     : allVinilos;
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [open, setOpen] = useState<Vinyl | null>(null);
-  const [active, setActive] = useState<Vinyl>(allVinilos[0]);
+  const [fullyOpen, setFullyOpen] = useState(false); // true after the open animation finishes
+  const [active, setActive] = useState<Vinyl | null>(allVinilos[0] ?? null);
+
+  // delay the edit overlay until the open animation is done (~2400ms in shelf)
+  useEffect(() => {
+    if (open) {
+      const t = setTimeout(() => setFullyOpen(true), 2400);
+      return () => clearTimeout(t);
+    }
+    setFullyOpen(false);
+  }, [open]);
+
+  // ensure active is always one from the current collection (or first if empty)
+  useEffect(() => {
+    if (vinilos.length === 0) {
+      setActive(null);
+      return;
+    }
+    if (!active || !vinilos.some((v) => v.id === active.id)) {
+      setActive(vinilos[0]);
+    }
+  }, [vinilos, active]);
 
   const updateCollections = useCallback((next: Collection[]) => {
     setCollections(next);
@@ -59,6 +91,7 @@ export default function Home() {
     updateCollections(collections.map((c) => (c.id === id ? { ...c, name } : c)));
   };
   const handleDeleteCollection = (id: string) => {
+    if (id === DEFAULT_ID) return; // primary collection is permanent
     const next = collections.filter((c) => c.id !== id);
     updateCollections(next);
     if (id === activeCollectionId) {
@@ -71,6 +104,57 @@ export default function Home() {
     setActiveCollectionId(id);
     saveActiveId(id);
   };
+  const handleAddVinylTo = (colId: string, vinylId: string) => {
+    updateCollections(
+      collections.map((c) =>
+        c.id === colId && !c.vinylIds.includes(vinylId)
+          ? { ...c, vinylIds: [...c.vinylIds, vinylId] }
+          : c,
+      ),
+    );
+  };
+
+  const handleRemoveVinylFromActive = (vinylId: string) => {
+    updateCollections(
+      collections.map((c) =>
+        c.id === activeCollectionId
+          ? { ...c, vinylIds: c.vinylIds.filter((id) => id !== vinylId) }
+          : c,
+      ),
+    );
+  };
+
+  const handleDeleteVinylPermanently = (vinylId: string) => {
+    // remove from master list AND from every collection
+    setAllVinilos((prev) => prev.filter((v) => v.id !== vinylId));
+    updateCollections(
+      collections.map((c) => ({
+        ...c,
+        vinylIds: c.vinylIds.filter((id) => id !== vinylId),
+      })),
+    );
+    // persist deletion to the JSON via a small API call (optional for now)
+    fetch("/api/vinyl/" + encodeURIComponent(vinylId), { method: "DELETE" }).catch(() => {});
+  };
+
+  const handleSetSort = (colId: string, sortBy: SortMode) => {
+    updateCollections(
+      collections.map((c) => (c.id === colId ? { ...c, sortBy } : c)),
+    );
+  };
+
+  const handleReorderVinyl = (colId: string, fromIdx: number, toIdx: number) => {
+    updateCollections(
+      collections.map((c) => {
+        if (c.id !== colId) return c;
+        const ids = [...c.vinylIds];
+        const [moved] = ids.splice(fromIdx, 1);
+        ids.splice(toIdx, 0, moved);
+        return { ...c, vinylIds: ids, sortBy: "custom" };
+      }),
+    );
+  };
+
   const handleToggleVinyl = (colId: string, vinylId: string) => {
     updateCollections(
       collections.map((c) => {
@@ -108,16 +192,30 @@ export default function Home() {
           setSearchOpen(true);
         }
       }
+      // arrows navigate prev/next while a vinyl is opened
+      if (open && !searchOpen) {
+        if (e.key === "ArrowRight") goNext();
+        else if (e.key === "ArrowLeft") goPrev();
+      }
+      // space toggles play/pause for the active preview
+      if (e.code === "Space" && !searchOpen) {
+        const tag = (e.target as HTMLElement)?.tagName;
+        if (tag !== "INPUT" && tag !== "TEXTAREA") {
+          e.preventDefault();
+          togglePlay();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleClose, searchOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleClose, searchOpen, open]);
 
   // audio cache: keyed by vinyl id → HTMLAudioElement (preloaded)
   const audioCacheRef = useRef<Map<string, HTMLAudioElement>>(new Map());
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const activeIndex = vinilos.findIndex((v) => v.id === active.id);
+  const activeIndex = active ? vinilos.findIndex((v) => v.id === active.id) : -1;
 
   // preload audio for the active item and its ±2 neighbours
   useEffect(() => {
@@ -166,7 +264,7 @@ export default function Home() {
   // stop audio when active album changes (unless we triggered the change ourselves)
   const autoPlayOnSettleRef = useRef(false);
   useEffect(() => {
-    if (autoPlayOnSettleRef.current) {
+    if (active && autoPlayOnSettleRef.current) {
       autoPlayOnSettleRef.current = false;
       playPreview(active);
     } else {
@@ -176,10 +274,10 @@ export default function Home() {
       }
       setPlaying(false);
     }
-  }, [active.id, active, playPreview]);
+  }, [active?.id, active, playPreview]);
 
   const togglePlay = () => {
-    if (!active.previewUrl) return;
+    if (!active?.previewUrl) return;
     if (playing && currentAudioRef.current) {
       currentAudioRef.current.pause();
       setPlaying(false);
@@ -188,23 +286,26 @@ export default function Home() {
     playPreview(active);
   };
 
+  // while opened, keep `open` (side info) in sync with the visible centred vinyl
+  useEffect(() => {
+    if (open && active && open.id !== active.id) setOpen(active);
+  }, [active, open]);
+
   const goPrev = () => {
     autoPlayOnSettleRef.current = true;
-    const N = vinilos.length;
-    setActive(vinilos[(activeIndex - 1 + N) % N]);
     shelfRef.current?.prev();
   };
 
   const goNext = () => {
     autoPlayOnSettleRef.current = true;
-    const N = vinilos.length;
-    setActive(vinilos[(activeIndex + 1) % N]);
     shelfRef.current?.next();
   };
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-ink text-paper">
-      <VinylShelf ref={shelfRef} vinilos={vinilos} onOpen={handleVinylClick} onActiveChange={setActive} />
+      {vinilos.length > 0 && (
+        <VinylShelf ref={shelfRef} vinilos={vinilos} onOpen={handleVinylClick} onActiveChange={setActive} />
+      )}
 
       {/* invisible backdrop while opened — click anywhere outside the vinyl closes */}
       {open && (
@@ -244,6 +345,25 @@ export default function Home() {
             <Field label="Country" value={open.country} />
             <Field label="Tracks" value={String(open.tracklist.length)} />
           </motion.div>
+
+          {/* edit icon over the cover — appears only once the open animation
+              has finished, and on hover */}
+          {fullyOpen && (
+            <VinylEditOverlay
+              vinyl={open}
+              collections={collections}
+              activeCollectionId={activeCollectionId}
+              onAddTo={(cid) => handleAddVinylTo(cid, open.id)}
+              onRemoveFromActive={() => {
+                handleRemoveVinylFromActive(open.id);
+                handleClose();
+              }}
+              onDeletePermanently={() => {
+                handleDeleteVinylPermanently(open.id);
+                handleClose();
+              }}
+            />
+          )}
         </>
       )}
 
@@ -254,15 +374,13 @@ export default function Home() {
         <div className="pointer-events-auto flex items-center gap-4">
           <button
             onClick={() => setSearchOpen(true)}
-            className="text-[11px] uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition flex items-center gap-2"
+            className="group flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition"
             aria-label="Buscar en Discogs"
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <circle cx="5" cy="5" r="3.5" stroke="currentColor" />
-              <path d="M7.5 7.5 L10.5 10.5" stroke="currentColor" strokeLinecap="round" />
-            </svg>
-            Buscar
-            <span className="text-paper/30 ml-1">/</span>
+            <kbd className="mono inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-[3px] border border-paper/25 text-[11px] text-paper/60 normal-case tracking-normal group-hover:border-paper/60 group-hover:text-paper transition">
+              /
+            </kbd>
+            <span>Buscar</span>
           </button>
           <div className="text-[11px] uppercase tracking-[0.22em] text-paper/60">
             {vinilos.length} discos
@@ -272,55 +390,70 @@ export default function Home() {
 
       {/* active title — moves up + shrinks when a vinyl is opened so it never
           overlaps the centred cover */}
-      <div
-        className={`pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-center transition-all duration-700 ease-out ${
-          open ? "top-[4%]" : "top-[12%]"
-        }`}
-      >
-        <motion.div
-          key={active.id}
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="px-6"
+      {active && (
+        <div
+          className={`pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-center transition-all ease-out ${
+            open
+              ? "top-[10%] duration-500"
+              : "top-[18%] duration-[1400ms] delay-[800ms]"
+          }`}
         >
-          <div className="text-[11px] uppercase tracking-[0.22em] text-paper/50">
-            {active.genre} · {active.year}
+          <div className="px-6">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-paper/50">
+              {active.genre} · {active.year}
+            </div>
+            <h1
+              className={`mt-2 font-medium leading-none text-paper transition-all ease-out ${
+                open
+                  ? "text-2xl md:text-3xl duration-500"
+                  : "text-4xl md:text-5xl duration-[1400ms] delay-[800ms]"
+              }`}
+            >
+              {active.title}
+            </h1>
+            {!open && (
+              <div className="mt-2 text-[13px] text-paper/60">{active.artist}</div>
+            )}
           </div>
-          <h1
-            className={`mt-2 font-serif italic leading-none text-paper transition-all duration-700 ease-out ${
-              open ? "text-xl md:text-2xl" : "text-4xl md:text-5xl"
-            }`}
-          >
-            {active.title}
-          </h1>
-          {!open && (
-            <div className="mt-2 text-[13px] text-paper/60">{active.artist}</div>
-          )}
-        </motion.div>
-      </div>
+        </div>
+      )}
 
-      {/* bottom-left: collection switcher */}
+      {/* subtle bottom gradient to improve readability of the bottom UI */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
+
+      {/* bottom-left: collection name + switcher */}
       <div className="absolute bottom-0 left-0 z-20 px-8 py-6">
-        <button
-          onClick={() => setCollectionsOpen(true)}
-          className="group flex items-center gap-3 text-left hover:opacity-90 transition"
-          aria-label="Cambiar colección"
-        >
-          <span className="flex h-6 w-6 items-center justify-center rounded-full border border-paper/30 text-paper/70 group-hover:text-paper group-hover:border-paper/60 transition">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M3 2 L3 8 M1 4 L3 2 L5 4 M7 8 L7 2 M5 6 L7 8 L9 6" stroke="currentColor" strokeWidth="1" />
-            </svg>
-          </span>
-          <span>
-            <span className="block font-serif text-[28px] italic leading-none">
+        <div className="flex items-center gap-3">
+          {collections.length > 1 && (
+            <button
+              onClick={() => {
+                const idx = collections.findIndex((c) => c.id === activeCollectionId);
+                const next = collections[(idx + 1) % collections.length];
+                handleActivateCollection(next.id);
+              }}
+              className="flex h-6 w-6 items-center justify-center rounded-full border border-paper/30 text-paper/70 hover:text-paper hover:border-paper/60 transition"
+              aria-label="Siguiente colección"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M3 2 L3 8 M1 4 L3 2 L5 4 M7 8 L7 2 M5 6 L7 8 L9 6" stroke="currentColor" strokeWidth="1" />
+              </svg>
+            </button>
+          )}
+          <div className="text-left">
+            <div className="text-[28px] font-medium leading-none">
               {activeCollection?.name ?? "Mi Colección"}
-            </span>
-            <span className="mt-1 block text-[11px] uppercase tracking-[0.18em] text-paper/50">
-              {vinilos.length} discos · cambiar
-            </span>
-          </span>
-        </button>
+            </div>
+            <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-paper/50">
+              {vinilos.length} discos ·{" "}
+              <button
+                onClick={() => setCollectionsOpen(true)}
+                className="text-paper/70 hover:text-paper transition underline-offset-2 hover:underline"
+              >
+                Listas
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* bottom-center: controls — always centered on viewport */}
@@ -335,7 +468,7 @@ export default function Home() {
           </button>
           <button
             onClick={togglePlay}
-            disabled={!active.previewUrl}
+            disabled={!active?.previewUrl}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-paper/30 text-paper hover:border-paper/80 transition disabled:opacity-30 disabled:cursor-not-allowed"
             aria-label={playing ? "Pause" : "Play"}
           >
@@ -361,17 +494,62 @@ export default function Home() {
       </div>
 
       {/* bottom-right: now viewing */}
-      <div className="pointer-events-none absolute bottom-0 right-0 z-20 px-8 py-6">
-        <div className="flex items-center gap-3 text-right">
-          <div className="max-w-[240px]">
-            <div className="text-[11px] uppercase tracking-[0.18em] text-paper/50">
-              Ahora viendo
+      {active && (
+        <div className="pointer-events-none absolute bottom-0 right-0 z-20 px-8 py-6">
+          <div className="flex items-center gap-3 text-right">
+            <div className="max-w-[240px]">
+              <div className="text-[11px] uppercase tracking-[0.18em] text-paper/50">
+                Ahora viendo
+              </div>
+              <div className="mt-1 truncate font-medium text-[15px]">{active.title}</div>
             </div>
-            <div className="mt-1 truncate font-medium text-[15px]">{active.title}</div>
+            <MiniVinyl coverUrl={coverFor(active)} />
           </div>
-          <MiniVinyl coverUrl={coverFor(active)} />
         </div>
-      </div>
+      )}
+
+      {/* empty state — archive card aesthetic */}
+      {vinilos.length === 0 && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto w-[420px] max-w-[90vw] border border-paper/10 bg-ink/40 backdrop-blur-sm">
+            {/* top stamp row */}
+            <div className="flex items-center justify-between border-b border-paper/10 px-5 py-2 mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+              <span>Ficha · 000</span>
+              <span>Vacía</span>
+            </div>
+            {/* body */}
+            <div className="px-7 pt-7 pb-6">
+              <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+                Estado
+              </div>
+              <div className="mt-1.5 text-[15px] text-paper/90">
+                Tu colección no tiene vinilos
+              </div>
+
+              <div className="mt-5 mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+                Siguiente paso
+              </div>
+              <div className="mt-1.5 text-[13px] text-paper/55 leading-relaxed">
+                Añade el primer disco desde el buscador. Se descargará su portada
+                y un preview de audio cuando estén disponibles.
+              </div>
+            </div>
+            {/* footer action */}
+            <div className="flex items-stretch border-t border-paper/10">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="flex-1 px-5 py-3 text-left text-[14px] text-paper hover:bg-paper/[0.04] transition flex items-center justify-between"
+              >
+                <span>Buscar vinilos en Discogs</span>
+                <span className="text-paper/40">→</span>
+              </button>
+              <div className="px-5 py-3 mono text-[10px] uppercase tracking-[0.22em] text-paper/30 border-l border-paper/10 flex items-center">
+                Tecla /
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <SearchOverlay
         open={searchOpen}
@@ -400,6 +578,8 @@ export default function Home() {
         onRename={handleRenameCollection}
         onDelete={handleDeleteCollection}
         onToggleVinyl={handleToggleVinyl}
+        onSetSort={handleSetSort}
+        onReorder={handleReorderVinyl}
         allVinilos={allVinilos}
       />
     </main>
