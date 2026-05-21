@@ -30,6 +30,14 @@ export default function Home() {
   const [activeCollectionId, setActiveCollectionId] = useState<string>(DEFAULT_ID);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [collectionFading, setCollectionFading] = useState(false);
+
+  // fade everything when the active collection changes
+  useEffect(() => {
+    setCollectionFading(true);
+    const t = setTimeout(() => setCollectionFading(false), 380);
+    return () => clearTimeout(t);
+  }, [activeCollectionId]);
 
   // hydrate from localStorage (with a minimum 3s display of the loading screen)
   useEffect(() => {
@@ -358,10 +366,11 @@ export default function Home() {
         </div>
       </div>
 
-      {/* everything else fades IN when hydrated */}
+      {/* everything else fades IN when hydrated, and fades briefly on
+          collection change for a smooth swap */}
       <div
-        className={`transition-opacity duration-700 ${
-          hydrated ? "opacity-100" : "opacity-0"
+        className={`transition-opacity duration-500 ${
+          !hydrated || collectionFading ? "opacity-0" : "opacity-100"
         }`}
       >
       {vinilos.length > 0 && (

@@ -220,10 +220,7 @@ export default function CollectionsOverlay({
                   return (
                     <li key={c.id} className="group relative">
                       <button
-                        onClick={() => {
-                          onActivate(c.id);
-                          onClose();
-                        }}
+                        onClick={() => onActivate(c.id)}
                         className="w-full flex items-center px-4 py-3 rounded-md bg-paper/[0.04] hover:bg-paper/8 transition text-left"
                       >
                         <span className="flex-1 text-[14px] text-paper truncate pr-12">

@@ -210,15 +210,15 @@ export default function SearchOverlay({ open, onClose, onAdded, localVinilos, on
                   </div>
                   {adding === r.id && <span className="text-[11px] text-paper/60">añadiendo…</span>}
                 </button>
-                {/* add to wishlist — visible on hover */}
+                {/* add to wishlist */}
                 <button
                   onClick={() => add(r, "wishlist")}
                   disabled={adding === r.id}
                   aria-label="Añadir a lista de deseos"
                   title="Añadir a lista de deseos"
-                  className="shrink-0 h-9 w-9 flex items-center justify-center text-paper/30 hover:text-paper transition opacity-0 group-hover:opacity-100 disabled:opacity-20"
+                  className="shrink-0 mr-2 flex h-9 w-9 items-center justify-center rounded-md border border-paper/15 bg-paper/[0.04] text-paper/50 hover:text-paper hover:border-paper/40 hover:bg-paper/[0.08] transition disabled:opacity-30"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                     <path
                       d="M8 13.5s-5-3.2-5-7.2A2.8 2.8 0 0 1 8 4.5a2.8 2.8 0 0 1 5 1.8c0 4-5 7.2-5 7.2z"
                       stroke="currentColor"

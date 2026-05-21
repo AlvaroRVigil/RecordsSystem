@@ -2670,5 +2670,192 @@
         "duration": "11:07"
       }
     ]
+  },
+  {
+    "id": "cypress-hill-black-sunday-12387973",
+    "title": "Black Sunday",
+    "artist": "Cypress Hill",
+    "year": 2018,
+    "genre": "Hip Hop",
+    "label": "Sony Music",
+    "country": "Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 12387973,
+    "cover": "/covers/cypress-hill-black-sunday-12387973.jpg",
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/dd/49/ac/dd49ac4c-a83c-9976-4cce-66bb3394fc73/mzaf_16154692503504516639.plus.aac.p.m4a",
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "I Wanna Get High",
+        "duration": "2:54"
+      },
+      {
+        "position": "A2",
+        "title": "I Ain't Goin' Out Like That",
+        "duration": "4:27"
+      },
+      {
+        "position": "A3",
+        "title": "Insane In The Brain",
+        "duration": "3:29"
+      },
+      {
+        "position": "B1",
+        "title": "When The Sh-- Goes Down",
+        "duration": "3:08"
+      },
+      {
+        "position": "B2",
+        "title": "Lick A Shot",
+        "duration": "3:23"
+      },
+      {
+        "position": "B3",
+        "title": "Cock The Hammer",
+        "duration": "4:25"
+      },
+      {
+        "position": "C1",
+        "title": "Lil' Putos",
+        "duration": "3:40"
+      },
+      {
+        "position": "C2",
+        "title": "Legalize It",
+        "duration": "0:46"
+      },
+      {
+        "position": "C3",
+        "title": "Hits From The Bong",
+        "duration": "2:40"
+      },
+      {
+        "position": "D1",
+        "title": "What Go Around Come Around, Kid",
+        "duration": "3:42"
+      },
+      {
+        "position": "D2",
+        "title": "A To The K",
+        "duration": "3:27"
+      },
+      {
+        "position": "D3",
+        "title": "Hand On The Glock",
+        "duration": "3:32"
+      },
+      {
+        "position": "D4",
+        "title": "Break 'Em Off Some",
+        "duration": "2:44"
+      }
+    ]
+  },
+  {
+    "id": "noga-erez-the-vandalist-31803860",
+    "title": "The Vandalist",
+    "artist": "Noga Erez",
+    "year": 2024,
+    "genre": "Electronic",
+    "label": "City Slang",
+    "country": "UK & Europe",
+    "palette": [
+      "#888",
+      "#666",
+      "#444",
+      "#222",
+      "#000"
+    ],
+    "discogsId": 31803860,
+    "cover": "/covers/noga-erez-the-vandalist-31803860.jpg",
+    "previewUrl": null,
+    "tracklist": [
+      {
+        "position": "A1",
+        "title": "Vandalist",
+        "duration": ""
+      },
+      {
+        "position": "A2",
+        "title": "Dumb",
+        "duration": ""
+      },
+      {
+        "position": "A3",
+        "title": "PC People",
+        "duration": ""
+      },
+      {
+        "position": "A4",
+        "title": "Come Back Home",
+        "duration": ""
+      },
+      {
+        "position": "A5",
+        "title": "A+",
+        "duration": ""
+      },
+      {
+        "position": "A6",
+        "title": "Ayayay",
+        "duration": ""
+      },
+      {
+        "position": "A7",
+        "title": "Smiling Upside Down",
+        "duration": ""
+      },
+      {
+        "position": "A8",
+        "title": "Hey, Hi",
+        "duration": ""
+      },
+      {
+        "position": "B1",
+        "title": "Sad Generation",
+        "duration": ""
+      },
+      {
+        "position": "B2",
+        "title": "Nogastein",
+        "duration": ""
+      },
+      {
+        "position": "B3",
+        "title": "Godmother",
+        "duration": ""
+      },
+      {
+        "position": "B4",
+        "title": "Police",
+        "duration": ""
+      },
+      {
+        "position": "B5",
+        "title": "P.L.E.A.S.E",
+        "duration": ""
+      },
+      {
+        "position": "B6",
+        "title": "Danny",
+        "duration": ""
+      },
+      {
+        "position": "B7",
+        "title": "Mind Show",
+        "duration": ""
+      },
+      {
+        "position": "B8",
+        "title": "Oh, Thank You!",
+        "duration": ""
+      }
+    ]
   }
 ]

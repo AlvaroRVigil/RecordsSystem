@@ -37,7 +37,7 @@ body {
 }
 .loading-dot {
   animation: loading-pulse 1.4s ease-in-out infinite;
-  color: #f5f3ee;
+  color: #f83a23;
 }
 
 @keyframes loading-bar-slide {

@@ -101,7 +101,7 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
 
   const LOOP_THRESHOLD = 8;
   const goToIdx = (idx: number) => {
-    const N = vinilos.length;
+    const N = lengthRef.current;
     if (N <= LOOP_THRESHOLD) {
       target.current = Math.max(0, Math.min(N - 1, idx));
       return;
@@ -113,7 +113,7 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
   };
 
   const stepTarget = (dir: 1 | -1) => {
-    const N = vinilos.length;
+    const N = lengthRef.current;
     const next = Math.round(target.current) + dir;
     target.current = N <= LOOP_THRESHOLD ? Math.max(0, Math.min(N - 1, next)) : next;
   };
@@ -138,13 +138,27 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
   );
 
   const containerRef = useRef<HTMLDivElement>(null);
+  // keep the latest list length in a ref so the input handlers (mounted once
+  // on first effect) always read the up-to-date value after a collection
+  // switch or vinyls add/remove.
+  const lengthRef = useRef(vinilos.length);
+  useEffect(() => {
+    lengthRef.current = vinilos.length;
+    // also clamp any in-flight scroll position into the new range so a
+    // collection change can't leave the carousel pointing at empty space
+    if (vinilos.length > 0 && vinilos.length <= 8) {
+      target.current = Math.max(0, Math.min(vinilos.length - 1, target.current));
+      current.current = Math.max(0, Math.min(vinilos.length - 1, current.current));
+    }
+  }, [vinilos.length]);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const clampToList = (v: number) => {
-      const N = vinilos.length;
-      if (N > LOOP_THRESHOLD) return v; // loop allowed → no clamp
+      const N = lengthRef.current;
+      if (N > LOOP_THRESHOLD) return v;
       return Math.max(0, Math.min(N - 1, v));
     };
 
