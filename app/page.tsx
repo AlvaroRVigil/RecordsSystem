@@ -76,10 +76,10 @@ export default function Home() {
   const [fullyOpen, setFullyOpen] = useState(false); // true after the open animation finishes
   const [active, setActive] = useState<Vinyl | null>(allVinilos[0] ?? null);
 
-  // delay the edit overlay until the open animation is done (~2400ms in shelf)
+  // delay the edit overlay until the open animation is done (~1600ms in shelf)
   useEffect(() => {
     if (open) {
-      const t = setTimeout(() => setFullyOpen(true), 2400);
+      const t = setTimeout(() => setFullyOpen(true), 1600);
       return () => clearTimeout(t);
     }
     setFullyOpen(false);
@@ -480,7 +480,7 @@ export default function Home() {
           className={`pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-center transition-all ease-out ${
             open
               ? "top-[10%] duration-500"
-              : "top-[18%] duration-[1600ms] delay-[1800ms]"
+              : "top-[18%] duration-[1100ms] delay-[1100ms]"
           }`}
         >
           <div className="px-6">
@@ -491,7 +491,7 @@ export default function Home() {
               className={`mt-2 font-medium leading-none text-paper transition-all ease-out ${
                 open
                   ? "text-2xl md:text-3xl duration-500"
-                  : "text-4xl md:text-5xl duration-[1600ms] delay-[1800ms]"
+                  : "text-4xl md:text-5xl duration-[1100ms] delay-[1100ms]"
               }`}
             >
               {active.title}

@@ -1,12 +1,76 @@
 "use client";
 
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 import { forwardRef, Suspense, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { useControls } from "leva";
 import type { Vinyl } from "@/lib/types";
 import { coverFor } from "@/lib/cover";
+
+// ---------------- shared texture cache + edge-colour sampler ----------------
+// Loads the cover image once, returns the three.js Texture AND samples the
+// average colour of the outer border so the sleeve's edges can be tinted to
+// blend with the printed cover.
+type LoadedCover = { texture: THREE.Texture; edgeColor: string };
+const TEXTURE_CACHE = new Map<string, Promise<LoadedCover>>();
+
+function sampleEdgeColor(img: HTMLImageElement): string {
+  try {
+    const SIZE = 48;
+    const c = document.createElement("canvas");
+    c.width = SIZE;
+    c.height = SIZE;
+    const ctx = c.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return "#888";
+    ctx.drawImage(img, 0, 0, SIZE, SIZE);
+    const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+    let r = 0,
+      g = 0,
+      b = 0,
+      n = 0;
+    // sample the outermost 2-pixel ring on each side
+    for (let y = 0; y < SIZE; y++) {
+      for (let x = 0; x < SIZE; x++) {
+        const onEdge = x < 2 || x >= SIZE - 2 || y < 2 || y >= SIZE - 2;
+        if (!onEdge) continue;
+        const i = (y * SIZE + x) * 4;
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        n++;
+      }
+    }
+    r = Math.round(r / n);
+    g = Math.round(g / n);
+    b = Math.round(b / n);
+    const hex = (v: number) => v.toString(16).padStart(2, "0");
+    return `#${hex(r)}${hex(g)}${hex(b)}`;
+  } catch {
+    return "#888";
+  }
+}
+
+function loadTextureCached(url: string): Promise<LoadedCover> {
+  const hit = TEXTURE_CACHE.get(url);
+  if (hit) return hit;
+  const p = new Promise<LoadedCover>((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const texture = new THREE.Texture(img);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = 8;
+      texture.needsUpdate = true;
+      const edgeColor = sampleEdgeColor(img);
+      resolve({ texture, edgeColor });
+    };
+    img.onerror = (e) => reject(e);
+    img.src = url;
+  });
+  TEXTURE_CACHE.set(url, p);
+  return p;
+}
 
 // ---------------- easing helpers ----------------
 const EASINGS = {
@@ -50,7 +114,7 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
 ) {
   // animation tuning (fixed)
   const tuning = {
-    openDuration: 2400,
+    openDuration: 1600,
     moveSplit: 0.45,
     flipOverlap: 0.4, // start the flip much earlier — overlaps most of the lift
     hoverSpring: 0.04,
@@ -244,8 +308,13 @@ const VinylShelf3D = forwardRef<VinylShelfHandle, Props>(function VinylShelf3D(
       style={{ cursor: "grab" }}
     >
       <Canvas
-        dpr={[1, 2]}
-        gl={{ toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
+        dpr={[1, 1.5]}
+        gl={{
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.2,
+          powerPreference: "high-performance",
+          antialias: true,
+        }}
       >
         <PerspectiveCamera makeDefault position={[camX, camY, zoom]} fov={fov} />
         <color attach="background" args={["#0a0a0a"]} />
@@ -353,9 +422,8 @@ function Strip({
   const lastIdx = useRef(-1);
   const N = vinilos.length;
 
-  // pre-load every cover texture
-  const urls = useMemo(() => vinilos.map(coverFor), [vinilos]);
-  useLoader(THREE.TextureLoader, urls);
+  // No more blocking pre-load of all textures — each Sleeve loads its own
+  // imperatively, with a palette-colour fallback while pending.
 
   // loop only if the collection is big enough — otherwise users would see
   // the same 5 vinyls repeated again right next to themselves
@@ -397,10 +465,12 @@ function Strip({
   });
 
   useFrame(() => {
-    // slow the carousel spring while a vinyl is opened so prev/next transitions
-    // through the centred view feel as cinematic as the open animation itself
-    const springRate = openTargetRef.current > 0 ? 0.025 : 0.12;
-    currentRef.current += (targetRef.current - currentRef.current) * springRate;
+    // while opened, snap directly to the new vinyl (no inter-vinyl animation)
+    if (openTargetRef.current > 0) {
+      currentRef.current = targetRef.current;
+    } else {
+      currentRef.current += (targetRef.current - currentRef.current) * 0.12;
+    }
 
     const t = tweenRef.current;
     if (openTargetRef.current !== t.lastTarget) {
@@ -541,72 +611,67 @@ function Sleeve({
   onClick: () => void;
 }) {
   const url = useMemo(() => coverFor(vinyl), [vinyl]);
-  const texture = useLoader(THREE.TextureLoader, url);
+  // lazy texture loading + edge-colour sampling — palette fallback while pending
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  const [sampledEdge, setSampledEdge] = useState<string | null>(null);
   useEffect(() => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 8;
-    texture.needsUpdate = true;
-  }, [texture]);
+    let cancelled = false;
+    loadTextureCached(url)
+      .then(({ texture: t, edgeColor }) => {
+        if (cancelled) return;
+        setTexture(t);
+        setSampledEdge(edgeColor);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [url]);
 
-  // edge slivers: clone the cover texture and clip UVs to the appropriate
-  // 1-pixel-ish strip so each side face looks like the cover wraps around.
-  // BoxGeometry face order: +X, -X, +Y, -Y, +Z, -Z
-  const edgeStrip = 0.015; // fraction of the cover used as the edge strip
-  const makeEdge = useMemo(
-    () => (
-      offsetU: number,
-      offsetV: number,
-      repeatU: number,
-      repeatV: number,
-    ) => {
-      const t = texture.clone();
-      t.needsUpdate = true;
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
-      t.repeat.set(repeatU, repeatV);
-      t.offset.set(offsetU, offsetV);
-      return t;
-    },
-    [texture],
+  // Edge slivers: instead of cloning the texture 4× per vinyl (heavy on
+  // memory + draw calls), use a solid colour pulled from the cover's palette.
+  // Visually it's still cardboard-like and indistinguishable at carousel
+  // viewing distance, but ~5× fewer texture units per vinyl.
+  // edge colour: prefer the colour sampled from the cover's border pixels
+  // (best blend with the printed art), fall back to palette while loading
+  const paletteColor = useMemo(() => dominantFromPalette(vinyl.palette), [vinyl.palette]);
+  const edgeColor = sampledEdge ?? paletteColor;
+  const edgeMaterial = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: edgeColor,
+        roughness: cardboardRoughness,
+      }),
+    [edgeColor, cardboardRoughness],
   );
-
-  const edgeRight = useMemo(() => makeEdge(1 - edgeStrip, 0, edgeStrip, 1), [makeEdge]);
-  const edgeLeft = useMemo(() => makeEdge(0, 0, edgeStrip, 1), [makeEdge]);
-  const edgeTop = useMemo(() => makeEdge(0, 1 - edgeStrip, 1, edgeStrip), [makeEdge]);
-  const edgeBottom = useMemo(() => makeEdge(0, 0, 1, edgeStrip), [makeEdge]);
-
-  const matRight = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: edgeRight, roughness: cardboardRoughness }),
-    [edgeRight, cardboardRoughness],
-  );
-  const matLeft = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: edgeLeft, roughness: cardboardRoughness }),
-    [edgeLeft, cardboardRoughness],
-  );
-  const matTop = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: edgeTop, roughness: cardboardRoughness }),
-    [edgeTop, cardboardRoughness],
-  );
-  const matBottom = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: edgeBottom, roughness: cardboardRoughness }),
-    [edgeBottom, cardboardRoughness],
-  );
+  // share the same material across all 4 side faces (right / left / top / bottom)
+  const matRight = edgeMaterial;
+  const matLeft = edgeMaterial;
+  const matTop = edgeMaterial;
+  const matBottom = edgeMaterial;
   // PhysicalMaterial w/ a touch of clearcoat → simulates the gloss laminate
   // of a real album sleeve so light catches highlights without washing out
   const portada = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        map: texture,
+        map: texture ?? null,
+        color: texture ? "#ffffff" : edgeColor,
         roughness: coverRoughness,
         metalness: coverMetalness,
         clearcoat: 0.4,
         clearcoatRoughness: 0.25,
       }),
-    [texture, coverRoughness, coverMetalness],
+    [texture, edgeColor, coverRoughness, coverMetalness],
   );
   const contra = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: texture, roughness: 0.7, metalness: 0, color: "#666" }),
-    [texture],
+    () =>
+      new THREE.MeshStandardMaterial({
+        map: texture ?? null,
+        color: texture ? "#666" : edgeColor,
+        roughness: 0.7,
+        metalness: 0,
+      }),
+    [texture, edgeColor],
   );
   const materials = useMemo(
     () => [matRight, matLeft, matTop, matBottom, portada, contra],
@@ -624,6 +689,14 @@ function Sleeve({
     if (delta > modulus / 2) delta -= modulus;
     if (delta < -modulus / 2) delta += modulus;
     const x = delta * spacing;
+
+    // fast skip: sleeves comfortably off-screen don't need per-frame math.
+    // We only check 1 unit beyond visibleX to allow margin for the lift.
+    if (Math.abs(x) > visibleX + 1) {
+      if (meshGroupRef.current.visible) meshGroupRef.current.visible = false;
+      return;
+    }
+    if (!meshGroupRef.current.visible) meshGroupRef.current.visible = true;
 
     const open = openProgressRef.current;
     // staged animation, each phase eased separately. flipOverlap brings the
