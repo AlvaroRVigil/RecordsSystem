@@ -29,14 +29,15 @@ export default function Home() {
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  // hydrate from localStorage
+  // hydrate from localStorage (with a minimum 3s display of the loading screen)
   useEffect(() => {
     const allIds = (data as Vinyl[]).map((v) => v.id);
     const cols = loadCollections(allIds);
     setCollections(cols);
     const aid = loadActiveId();
     setActiveCollectionId(cols.some((c) => c.id === aid) ? aid : cols[0].id);
-    setHydrated(true);
+    const t = setTimeout(() => setHydrated(true), 3000);
+    return () => clearTimeout(t);
   }, []);
 
   // current collection's vinyls (filtered + sorted)
@@ -303,6 +304,29 @@ export default function Home() {
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-ink text-paper">
+      {!hydrated && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-ink">
+          <div className="w-[320px] border border-paper/10">
+            <div className="flex items-center justify-between border-b border-paper/10 px-4 py-2 mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+              <span>Sistema · v0.1</span>
+              <span className="loading-dot">●</span>
+            </div>
+            <div className="px-5 pt-5 pb-3">
+              <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/40">
+                Estado
+              </div>
+              <div className="mt-1.5 text-[14px] text-paper/85">
+                Cargando ficheros
+              </div>
+            </div>
+            <div className="px-5 pb-5">
+              <div className="h-px bg-paper/10 relative overflow-hidden">
+                <div className="absolute inset-y-0 left-0 w-1/3 bg-paper/40 loading-bar" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {vinilos.length > 0 && (
         <VinylShelf ref={shelfRef} vinilos={vinilos} onOpen={handleVinylClick} onActiveChange={setActive} />
       )}
@@ -349,6 +373,20 @@ export default function Home() {
           {/* edit icon over the cover — appears only once the open animation
               has finished, and on hover */}
           {fullyOpen && (
+            <motion.button
+              onClick={handleClose}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              aria-label="Cerrar"
+              className="absolute left-1/2 top-[86%] -translate-x-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-paper/20 text-paper/60 hover:text-paper hover:border-paper/60 transition"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" strokeLinecap="round" />
+              </svg>
+            </motion.button>
+          )}
+          {fullyOpen && (
             <VinylEditOverlay
               vinyl={open}
               collections={collections}
@@ -382,9 +420,6 @@ export default function Home() {
             </kbd>
             <span>Buscar</span>
           </button>
-          <div className="text-[11px] uppercase tracking-[0.22em] text-paper/60">
-            {vinilos.length} discos
-          </div>
         </div>
       </div>
 
@@ -395,7 +430,7 @@ export default function Home() {
           className={`pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-center transition-all ease-out ${
             open
               ? "top-[10%] duration-500"
-              : "top-[18%] duration-[1400ms] delay-[800ms]"
+              : "top-[18%] duration-[1600ms] delay-[1800ms]"
           }`}
         >
           <div className="px-6">
@@ -406,7 +441,7 @@ export default function Home() {
               className={`mt-2 font-medium leading-none text-paper transition-all ease-out ${
                 open
                   ? "text-2xl md:text-3xl duration-500"
-                  : "text-4xl md:text-5xl duration-[1400ms] delay-[800ms]"
+                  : "text-4xl md:text-5xl duration-[1600ms] delay-[1800ms]"
               }`}
             >
               {active.title}
@@ -440,7 +475,7 @@ export default function Home() {
             </button>
           )}
           <div className="text-left">
-            <div className="text-[28px] font-medium leading-none">
+            <div className="text-[20px] font-medium leading-none">
               {activeCollection?.name ?? "Mi Colección"}
             </div>
             <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-paper/50">

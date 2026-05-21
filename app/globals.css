@@ -24,6 +24,24 @@ body {
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* loading screen */
+@keyframes loading-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+.loading-dot {
+  animation: loading-pulse 1.4s ease-in-out infinite;
+  color: #f5f3ee;
+}
+
+@keyframes loading-bar-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+.loading-bar {
+  animation: loading-bar-slide 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
 /* minimal scrollbar for overlay panels */
 [data-scrollable]::-webkit-scrollbar {
   width: 4px;
