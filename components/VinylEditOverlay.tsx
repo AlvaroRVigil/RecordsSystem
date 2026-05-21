@@ -8,7 +8,9 @@ type Props = {
   vinyl: Vinyl;
   collections: Collection[];
   activeCollectionId: string;
+  isInWishlist?: boolean;
   onAddTo: (collectionId: string) => void;
+  onMoveToCollection?: () => void;
   onRemoveFromActive: () => void;
   onDeletePermanently: () => void;
 };
@@ -22,7 +24,9 @@ export default function VinylEditOverlay({
   vinyl,
   collections,
   activeCollectionId,
+  isInWishlist,
   onAddTo,
+  onMoveToCollection,
   onRemoveFromActive,
   onDeletePermanently,
 }: Props) {
@@ -64,6 +68,16 @@ export default function VinylEditOverlay({
     >
       {/* hover sensor — covers the whole cover area */}
       <div className="pointer-events-auto absolute inset-0" />
+
+      {/* big central CTA only visible when this vinyl is in the wishlist */}
+      {isInWishlist && onMoveToCollection && (
+        <button
+          onClick={onMoveToCollection}
+          className="pointer-events-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-3 rounded-md bg-ink/70 backdrop-blur-sm border border-paper/25 text-paper text-[13px] uppercase tracking-[0.18em] hover:bg-ink/90 hover:border-paper/60 transition opacity-0 group-hover:opacity-100"
+        >
+          Añadir a mi colección
+        </button>
+      )}
 
       <div ref={wrapperRef} className="pointer-events-auto absolute top-3 right-3">
         <button

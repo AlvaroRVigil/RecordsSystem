@@ -14,6 +14,7 @@ type Props = {
   onRename: (id: string, name: string) => void;
   onDelete: (id: string) => void;
   onToggleVinyl: (collectionId: string, vinylId: string) => void;
+  onDeleteVinyl: (vinylId: string) => void;
   onSetSort: (collectionId: string, sortBy: SortMode) => void;
   onReorder: (collectionId: string, fromIdx: number, toIdx: number) => void;
   allVinilos: Vinyl[];
@@ -59,6 +60,7 @@ export default function CollectionsOverlay({
   onRename,
   onDelete,
   onToggleVinyl,
+  onDeleteVinyl,
   onSetSort,
   onReorder,
   allVinilos,
@@ -121,6 +123,7 @@ export default function CollectionsOverlay({
               isPrimary={editing.id === DEFAULT_ID}
               onRename={onRename}
               onToggleVinyl={onToggleVinyl}
+              onDeleteVinyl={onDeleteVinyl}
               onSetSort={onSetSort}
               onReorder={onReorder}
             />
@@ -215,7 +218,7 @@ export default function CollectionsOverlay({
                 {others.map((c) => {
                   const s = statsFor(c, allVinilos);
                   return (
-                    <li key={c.id}>
+                    <li key={c.id} className="group relative">
                       <button
                         onClick={() => {
                           onActivate(c.id);
@@ -223,12 +226,26 @@ export default function CollectionsOverlay({
                         }}
                         className="w-full flex items-center px-4 py-3 rounded-md bg-paper/[0.04] hover:bg-paper/8 transition text-left"
                       >
-                        <span className="flex-1 text-[14px] text-paper truncate">
+                        <span className="flex-1 text-[14px] text-paper truncate pr-12">
                           {c.name}
                         </span>
                         <span className="text-[12px] text-paper/40 ml-3">
                           {s.count} discos
                         </span>
+                      </button>
+                      {/* edit button — activates the list and opens its edit view without closing the overlay */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onActivate(c.id);
+                          setEditId(c.id);
+                        }}
+                        aria-label="Editar lista"
+                        className="absolute right-[88px] top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center text-paper/30 hover:text-paper transition opacity-0 group-hover:opacity-100"
+                      >
+                        <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                          <path d="M8 1 L11 4 L4 11 L1 11 L1 8 Z" stroke="currentColor" fill="none" />
+                        </svg>
                       </button>
                     </li>
                   );
@@ -292,6 +309,7 @@ function EditPanel({
   isPrimary,
   onRename,
   onToggleVinyl,
+  onDeleteVinyl,
   onSetSort,
   onReorder,
 }: {
@@ -300,6 +318,7 @@ function EditPanel({
   isPrimary: boolean;
   onRename: (id: string, name: string) => void;
   onToggleVinyl: (collectionId: string, vinylId: string) => void;
+  onDeleteVinyl: (vinylId: string) => void;
   onSetSort: (collectionId: string, sortBy: SortMode) => void;
   onReorder: (collectionId: string, fromIdx: number, toIdx: number) => void;
 }) {
@@ -420,15 +439,23 @@ function EditPanel({
                   <span className="ml-2 text-paper/40">{v.artist}</span>
                   {v.year ? <span className="ml-2 text-paper/25">{v.year}</span> : null}
                 </span>
-                {!isPrimary && (
-                  <button
-                    onClick={() => onToggleVinyl(editing.id, v.id)}
-                    className="text-[11px] uppercase tracking-[0.16em] text-paper/30 hover:text-red-400 transition px-2 opacity-0 group-hover:opacity-100"
-                    aria-label="Quitar"
-                  >
-                    Quitar
-                  </button>
-                )}
+                <button
+                  onClick={() => {
+                    if (isPrimary) {
+                      // Mi Colección: removing means deleting the vinyl entirely
+                      if (confirm(`Eliminar permanentemente "${v.title}"?`)) {
+                        onDeleteVinyl(v.id);
+                      }
+                    } else {
+                      // any other list: just take it out of this list
+                      onToggleVinyl(editing.id, v.id);
+                    }
+                  }}
+                  className="text-[11px] uppercase tracking-[0.16em] text-paper/30 hover:text-red-400 transition px-2 opacity-0 group-hover:opacity-100"
+                  aria-label={isPrimary ? "Eliminar permanentemente" : "Quitar"}
+                >
+                  {isPrimary ? "Eliminar" : "Quitar"}
+                </button>
               </li>
             );
           })}

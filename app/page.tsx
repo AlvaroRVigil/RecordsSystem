@@ -21,6 +21,7 @@ import {
   newCollection,
   sortedVinylIds,
   DEFAULT_ID,
+  WISHLIST_ID,
 } from "@/lib/collections";
 
 export default function Home() {
@@ -42,11 +43,18 @@ export default function Home() {
   }, []);
 
   // current collection's vinyls (filtered + sorted)
-  // Mi Colección (DEFAULT_ID) is virtual: always = allVinilos
+  // Wishlist and Mi Colección are mutually exclusive: a vinyl is owned (Mi
+  // Colección + custom lists) OR wished (Wishlist), never both.
+  const wishlist = collections.find((c) => c.id === WISHLIST_ID);
+  const wishlistSet = new Set(wishlist?.vinylIds ?? []);
+  const ownedVinylIds = allVinilos
+    .map((v) => v.id)
+    .filter((id) => !wishlistSet.has(id));
+
   const activeCollection = collections.find((c) => c.id === activeCollectionId);
   const effectiveCollection = activeCollection
     ? activeCollection.id === DEFAULT_ID
-      ? { ...activeCollection, vinylIds: allVinilos.map((v) => v.id) }
+      ? { ...activeCollection, vinylIds: ownedVinylIds }
       : activeCollection
     : null;
   const vinilos = effectiveCollection
@@ -110,12 +118,27 @@ export default function Home() {
     saveActiveId(id);
   };
   const handleAddVinylTo = (colId: string, vinylId: string) => {
+    const addingToWishlist = colId === WISHLIST_ID;
     updateCollections(
-      collections.map((c) =>
-        c.id === colId && !c.vinylIds.includes(vinylId)
-          ? { ...c, vinylIds: [...c.vinylIds, vinylId] }
-          : c,
-      ),
+      collections.map((c) => {
+        if (c.id === colId) {
+          return c.vinylIds.includes(vinylId)
+            ? c
+            : { ...c, vinylIds: [...c.vinylIds, vinylId] };
+        }
+        // mutually exclusive with wishlist
+        if (addingToWishlist && c.id !== WISHLIST_ID) {
+          return c.vinylIds.includes(vinylId)
+            ? { ...c, vinylIds: c.vinylIds.filter((id) => id !== vinylId) }
+            : c;
+        }
+        if (!addingToWishlist && c.id === WISHLIST_ID) {
+          return c.vinylIds.includes(vinylId)
+            ? { ...c, vinylIds: c.vinylIds.filter((id) => id !== vinylId) }
+            : c;
+        }
+        return c;
+      }),
     );
   };
 
@@ -405,7 +428,11 @@ export default function Home() {
               vinyl={open}
               collections={collections}
               activeCollectionId={activeCollectionId}
+              isInWishlist={activeCollectionId === WISHLIST_ID}
               onAddTo={(cid) => handleAddVinylTo(cid, open.id)}
+              onMoveToCollection={() => {
+                handleAddVinylTo(DEFAULT_ID, open.id); // mutex handler removes it from wishlist
+              }}
               onRemoveFromActive={() => {
                 handleRemoveVinylFromActive(open.id);
                 handleClose();
@@ -427,7 +454,7 @@ export default function Home() {
           <button
             onClick={() => setSearchOpen(true)}
             className="group flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition"
-            aria-label="Buscar en Discogs"
+            aria-label="Buscar"
           >
             <kbd className="mono inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-[3px] border border-paper/25 text-[11px] text-paper/60 normal-case tracking-normal group-hover:border-paper/60 group-hover:text-paper transition">
               /
@@ -589,7 +616,7 @@ export default function Home() {
                 onClick={() => setSearchOpen(true)}
                 className="flex-1 px-5 py-3 text-left text-[14px] text-paper hover:bg-paper/[0.04] transition flex items-center justify-between"
               >
-                <span>Buscar vinilos en Discogs</span>
+                <span>Buscar vinilos</span>
                 <span className="text-paper/40">→</span>
               </button>
               <div className="px-5 py-3 mono text-[10px] uppercase tracking-[0.22em] text-paper/30 border-l border-paper/10 flex items-center">
@@ -603,17 +630,23 @@ export default function Home() {
       <SearchOverlay
         open={searchOpen}
         onClose={() => setSearchOpen(false)}
-        onAdded={(v) => {
+        localVinilos={vinilos}
+        onJumpTo={(v) => {
+          const idx = vinilos.findIndex((x) => x.id === v.id);
+          if (idx >= 0) shelfRef.current?.goTo(idx);
+        }}
+        onAdded={(v, target) => {
           // add to master list
           setAllVinilos((prev) => (prev.some((x) => x.id === v.id) ? prev : [...prev, v]));
-          // also append to the currently active collection
-          updateCollections(
-            collections.map((c) =>
-              c.id === activeCollectionId && !c.vinylIds.includes(v.id)
-                ? { ...c, vinylIds: [...c.vinylIds, v.id] }
-                : c,
-            ),
-          );
+          // pick destination: wishlist or active collection (defaulting to
+          // Mi Colección when the user is currently viewing the wishlist)
+          const destId =
+            target === "wishlist"
+              ? WISHLIST_ID
+              : activeCollectionId === WISHLIST_ID
+              ? DEFAULT_ID
+              : activeCollectionId;
+          handleAddVinylTo(destId, v.id);
         }}
       />
 
@@ -627,6 +660,7 @@ export default function Home() {
         onRename={handleRenameCollection}
         onDelete={handleDeleteCollection}
         onToggleVinyl={handleToggleVinyl}
+        onDeleteVinyl={handleDeleteVinylPermanently}
         onSetSort={handleSetSort}
         onReorder={handleReorderVinyl}
         allVinilos={allVinilos}
